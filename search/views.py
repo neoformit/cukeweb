@@ -1,3 +1,9 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+def input(request):
+    return None
+
+
+def result(request):
+    return None

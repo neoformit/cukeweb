@@ -1,0 +1,65 @@
+{% extends "home/header.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="header">
+  <a href="/"> <img src="{% static 'home/img/home.png' %}" alt="Homepage"> </a>
+  <h2> The cuke register </h2>
+  <h1>Register new animals</h1>
+</div>
+
+<form class="register-form-group" enctype="multipart/form-data" action="/register/confirm/" method="post">
+
+  {% csrf_token %}
+
+  <div class="container tanks">
+    <div class="input-box">
+      <input type="text" id="tank_id" name="tank_id" oninput="validateTankName(this);" placeholder="Enter a new tank identifier">
+    </div>
+
+    {% if tanks %}
+
+    <p> or </p>
+
+    <div class="dropdown">
+      <select class="form-control" name="tank_id_select" id="tank_id_select" onchange="validateTankSelect(this);">
+        <option value="" selected> Select an existing tank </option>
+        {% for tank in tanks %}
+        <option value="{{ tank }}"> {{ tank }} </option>
+        {% endfor %}
+      </select>
+    </div>
+    {% endif %}
+  </div>
+
+  <p class="error-msg"> <!-- js filled --> </p>
+
+  <label class="file-input disabled" for="images">
+    <img src="{% static 'register/img/photo.png' %}" alt="Photo icon">
+    Upload images
+  </label>
+  <input type="file" id="images" name="images" oninput="validateFiles(this);" accept=".jpg,.jpeg" multiple disabled></input>
+
+  <p id="fileCount"> 0 files selected </p>
+
+  <button type="submit" disabled> Upload </button>
+</form>
+
+{% endblock %}
+
+
+{% block javascript %}
+
+<script type="text/javascript">
+  const existingTanks = [
+    {% for tank in tanks %}
+    "{{ tank }}",
+    {% endfor %}
+  ]
+</script>
+
+<script src="{% static 'home/js/ajax.js' %}"></script>
+<script src="{% static 'register/js/checkTanks.js' %}"></script>
+
+{% endblock %}
