@@ -9,7 +9,7 @@
   <h1>Register new animals</h1>
 </div>
 
-<form class="register-form-group" enctype="multipart/form-data" action="/register/confirm/" method="post">
+<form class="register-form-group" enctype="multipart/form-data" action="/register/" onsubmit="return formSubmit();" method="post">
 
   {% csrf_token %}
 
@@ -33,7 +33,14 @@
     {% endif %}
   </div>
 
-  <p class="error-msg"> <!-- js filled --> </p>
+  <p class="error-msg">
+    <!-- js and django-filled -->
+    {% if error_msg %}
+    Invalid form:
+    <br>
+    {{ error_msg }}
+    {% endif %}
+  </p>
 
   <label class="file-input disabled" for="images">
     <img src="{% static 'register/img/photo.png' %}" alt="Photo icon">
@@ -60,6 +67,6 @@
 </script>
 
 <script src="{% static 'home/js/ajax.js' %}"></script>
-<script src="{% static 'register/js/checkTanks.js' %}"></script>
+<script src="{% static 'register/js/register.js' %}"></script>
 
 {% endblock %}

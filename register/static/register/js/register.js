@@ -144,3 +144,17 @@ function validateForm() {
         $('button:submit').prop('disabled', 'true')
     }
 }
+
+function formSubmit() {
+    const new_tank = $('#tank_id')[0].value;
+    const existing_tank = $('#tank_id_select')[0].value;
+
+    if (!new_tank) {
+        if (existing_tank !== '0') {
+            $('#tank_id').val(existing_tank);
+            return true
+        }
+        $('form.register-form-group .error-msg').text('A tank identifier must be provided');
+        return false
+    }
+}
