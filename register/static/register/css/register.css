@@ -93,20 +93,36 @@ div.invalid .col {
 div.invalid .col.text {
   max-width: 400px;
 }
+div.invalid button.warn {
+  position: relative;
+}
 div.invalid button.warn::after {
   position: absolute;
   opacity: 0;
   top: 0;
-  right: -215px;
-  width: 200px;
-  height: 125px;
-  color: #555;
+  right: -140px;
+  width: 100px;
+  height: auto;
+  padding: 10px;
+  color: #222;
   background-color: #eee;
   border-radius: 10px;
-  transition-duration: 0.25s;
+  font-size: 0.75rem;
   content: "Notify developer if this is an error";
 }
-div.invalid button.warn:hover::after {
+div.invalid button.warn::before {
+  position: absolute;
+  opacity: 0;
+  top: 13px;
+  right: -35px;
+  width: 20px;
+  height: 20px;
+  background-color: #eee;
+  transform: rotate(115deg) skewY(45deg);
+  content: "";
+}
+div.invalid button.warn:hover::after,
+div.invalid button.warn:hover::before {
   opacity: 1;
 }
 div.invalid img {

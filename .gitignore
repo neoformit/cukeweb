@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+cukeweb/media/
 
 # C extensions
 *.so
