@@ -1,0 +1,118 @@
+/* Register page */
+form.register-form-group {
+  width: 50vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+form.register-form-group .tanks {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+form.register-form-group .tanks > * {
+  margin: 50px 30px;
+}
+form.register-form-group .input-box input {
+  width: 320px;
+}
+form.register-form-group .dropdown select {
+  color: inherit;
+  width: 350px;
+  padding: 15px;
+  margin: 20px 0;
+  font-size: 1.5rem;
+  background-color: var(--button-main);
+  border: none;
+  border-radius: 10px;
+}
+form.register-form-group .dropdown option {
+  color: black;
+  padding: 15px;
+  font-size: 1.5rem;
+}
+form.register-form-group p {
+  font-size: 1.5rem;
+  font-weight: normal;
+  margin-top: 0;
+  margin-bottom: 35px;
+}
+form.register-form-group p.error-msg {
+  height: 23.5px;
+}
+form.register-form-group .input-box,
+form.register-form-group .dropdown {
+  position: relative;
+}
+form.register-form-group div.valid input,
+form.register-form-group div.valid select {
+  box-shadow: 0 0 10px 2px lawngreen;
+}
+form.register-form-group div.valid::after {
+  content: "";
+  display: block;
+  position: absolute;
+  right: 15px;
+  top: 42px;
+  width: 20px;
+  height: 6px;
+  border: 3px solid lawngreen;
+  border-top: none;
+  border-right: none;
+  transform: rotate(-60deg);
+}
+
+/* Confirmation page */
+div.confirm {
+  text-align: center;
+}
+img.success {
+  opacity: 0.8;
+  width: 300px;
+  height: auto;
+  margin: 0 auto;
+}
+div.invalid .row {
+  margin: 25px;
+  padding: 50px;
+  background-color: rgba(200,200,200,0.05)
+  border: 2px solid rgba(200,200,200,0.2);
+  border-radius: 15px;
+}
+div.invalid .col {
+  text-align: left;
+  padding: 25px;
+  justify-content: center;
+}
+div.invalid .col.text {
+  max-width: 400px;
+}
+div.invalid button.warn::after {
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -215px;
+  width: 200px;
+  height: 125px;
+  color: #555;
+  background-color: #eee;
+  border-radius: 10px;
+  transition-duration: 0.25s;
+  content: "Notify developer if this is an error";
+}
+div.invalid button.warn:hover::after {
+  opacity: 1;
+}
+div.invalid img {
+  height: 200px;
+  width: auto;
+  padding: 10px;
+  border: 1px solid #555;
+  border-radius: 10px;
+}

@@ -1,26 +1,62 @@
 {% extends "home/header.html" %}
 {% load static %}
 
+{% block head %}
+<link rel="stylesheet" href="{% static 'register/css/register.css' %}">
+{% endblock %}
+
 {% block content %}
 
 <div class="header">
   <h2>The cucumber registry</h2>
 
-  <h1>Image match identification</h1>
+  <h1>Register new animals</h1>
 </div>
 
-<div class="home-button-group">
-  <a class="button" href="/register">
-    Register new animals
-  </a>
+<div class="confirm">
 
-  <a class="button" href="/match">
-    Image match
-  </a>
+  {% if invalid %}
 
-  <a class="button" href="/search">
-    Search registry
-  </a>
+  {% if count %}
+  <h2 class="success-msg">{{ count }} animal(s) registered successfully</h2>
+  <br>
+  <h2 class="error-msg"> {{ invalid|length }} image(s) could not be registered: </h2>
+  {% else %}
+  <h2 class="error-msg">Sorry, none of the images could be registered!</h2>
+  <br>
+  {% endif %}
+
+  <div class="container invalid">
+  {% for item in invalid %}
+  <div class="row">
+    <!-- failed image -->
+    <div class="col">
+      <img src="{{ item.uri }}" alt="Invalid image">
+    </div>
+
+    <!-- error message -->
+    <div class="col text">
+      <h4 class="error-msg"> <b>File:</b> {{ item.name }} </h4>
+      <h4 class="error-msg"> <b>Error:</b> {{ item.message }} </h4>
+      <button class="warn" type="button" onclick="reportError('{{ item.name }}');"> Report error </button>
+    </div>
+  </div>
+  {% endfor %}
+  </div>
+
+  {% else %}
+
+  <!-- Success graphic -->
+  <img src="{% static 'register/img/success.png' %}" alt="Success icon">
+
+  <h2>{{ count }} animals registered successfully</h2>
+
+  {% endif %}
+
 </div>
+
+<a class="button" href="/"> Home </a>
+<br>
+<a class="button" href="/register"> Register more </a>
 
 {% endblock %}

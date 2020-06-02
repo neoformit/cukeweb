@@ -1,3 +1,9 @@
+"""Register models with the Django admin interface."""
+
 from django.contrib import admin
 
-# Register your models here.
+from .models import Tank, Cucumber
+
+
+admin.site.register(Tank)
+admin.site.register(Cucumber)

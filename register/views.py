@@ -24,9 +24,9 @@ def register(request):
         if form.is_valid():
             tank_id = form.cleaned_data['tank_id']
             tank = get_or_create_tank(tank_id)
-            not_found = uploads.register(request.FILES, tank)
+            success_count, invalid = uploads.register(request.FILES, tank)
             return render(request, 'register/confirm.html',
-                          {'not_found': not_found})
+                          {'count': success_count, 'invalid': invalid})
         # Problem with form
         return render(request, 'register/register.html', {
             'tanks': tank_ids,

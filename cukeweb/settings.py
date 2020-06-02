@@ -12,10 +12,14 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 import psycopg2
+from .log_conf import LOGGING
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+print("BASE_DIR: %s" % BASE_DIR)
 
+# Toggle between debug/info
+LOGGING['loggers']['main']['level'] = 'INFO'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
