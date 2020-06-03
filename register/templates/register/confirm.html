@@ -10,35 +10,42 @@
 <div class="header">
   <a href="/"> <img src="{% static 'home/img/home.png' %}" alt="Homepage"> </a>
   <h2>The cuke register</h2>
-  <h1>Register new animals</h1>
+  {% if count %}
+  <h1>Registration complete</h1>
+  {% else %}
+  <h1>Registration failed</h1>
+  {% endif %}
 </div>
 
 <div class="confirm">
 
-  {% if invalid %}
+  {% if failed %}
 
   {% if count %}
-  <h2 class="success-msg">{{ count }} animal(s) registered successfully</h2>
+  <h2 class="success-msg box">{{ count }} animal(s) registered to tank {{ tank_id }}</h2>
   <br>
-  <h2 class="error-msg"> {{ invalid|length }} image(s) could not be registered: </h2>
+  <h2 class="error-msg box"> {{ failed|length }} image(s) could not be registered: </h2>
   {% else %}
-  <h2 class="error-msg">Sorry, none of the images could be registered!</h2>
+  <h2 class="error-msg box">Sorry, none of the images could be registered</h2>
   <br>
   {% endif %}
 
+  <a class="button" href="/register/report" target="_blank"> PDF report </a>
+  <br>
+
   <div class="container invalid">
-  {% for item in invalid %}
+  {% for item in failed %}
   <div class="row">
     <!-- failed image -->
     <div class="col">
-      <img src="{{ item.uri }}" alt="Invalid image">
+      <img src="{{ item.img_uri }}" alt="Cucumber image">
     </div>
 
     <!-- error message -->
     <div class="col text">
-      <h4 class="error-msg"> <b>File:</b> {{ item.name }} </h4>
+      <h4 class="error-msg"> <b>File:</b> {{ item.filename }} </h4>
       <h4 class="error-msg"> <b>Error:</b> {{ item.message }} </h4>
-      <button class="warn" type="button" onclick="reportError('{{ item.name }}');"> Report error </button>
+      <button class="warn" type="button" onclick="reportError('{{ item.name }}');"> Report bug </button>
     </div>
   </div>
   {% endfor %}
@@ -47,9 +54,10 @@
   {% else %}
 
   <!-- Success graphic -->
+  <h2 class="success-msg box">{{ count }} animals registered successfully</h2>
+  <br>
+  <br>
   <img src="{% static 'register/img/success.png' %}" alt="Success icon">
-
-  <h2>{{ count }} animals registered successfully</h2>
 
   {% endif %}
 

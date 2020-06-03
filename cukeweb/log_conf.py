@@ -24,7 +24,7 @@ LOGGING = {
             'class': 'logging.handlers.RotatingFileHandler',
             'maxBytes': 1000000,  # 1MB ~ 20k rows
             'backupCount': 5,
-            'filename': (os.path.join(BASE_DIR, 'logs', 'main.log')),
+            'filename': (os.path.join(BASE_DIR, 'cukeweb', 'logs', 'main.log')),
             'formatter': 'verbose',
         },
         'error_file': {
@@ -33,7 +33,7 @@ LOGGING = {
             'class': 'logging.handlers.RotatingFileHandler',
             'maxBytes': 1000000,  # 1MB ~ 20k rows
             'backupCount': 5,
-            'filename': (os.path.join(BASE_DIR, 'logs', 'error.log')),
+            'filename': (os.path.join(BASE_DIR, 'cukeweb', 'logs', 'error.log')),
             'formatter': 'verbose',
         },
         'console': {

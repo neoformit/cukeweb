@@ -72,6 +72,11 @@ form.register-form-group div.valid::after {
 div.confirm {
   text-align: center;
 }
+div.confirm > img {
+  width: 300px;
+  opacity: 0.8;
+  margin-left: 40px;
+}
 img.success {
   opacity: 0.8;
   width: 300px;
@@ -108,7 +113,7 @@ div.invalid button.warn::after {
   background-color: #eee;
   border-radius: 10px;
   font-size: 0.75rem;
-  content: "Notify developer if this is an error";
+  content: "Notify developer if this is a bug";
 }
 div.invalid button.warn::before {
   position: absolute;

@@ -191,11 +191,27 @@ button.warn {
 button.warn:hover {
   background-color: rgba(252,191,8,1);
 }
+.success-msg {
+  color: lawngreen;
+}
 .error-msg {
   color: gold;
 }
-.success-msg {
-  color: lawngreen;
+.success-msg.box {
+  color: #222;
+  font-weight: bold;
+  background-color: #ccc;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px 0 lawngreen;
+}
+.error-msg.box {
+  color: firebrick;
+  font-weight: bold;
+  background-color: #ccc;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px 0 firebrick;
 }
 
 /* Homepage */
