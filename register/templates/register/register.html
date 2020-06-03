@@ -19,7 +19,7 @@
 
   <div class="container tanks">
     <div class="input-box">
-      <input type="text" id="tank_id" name="tank_id" oninput="validateTankName(this);" placeholder="Enter a new tank identifier">
+      <input type="text" id="tank_id" name="tank_id" oninput="validateTankName(this);" placeholder="Enter a new tank identifier" autofocus>
     </div>
 
     {% if tanks %}
@@ -46,15 +46,34 @@
     {% endif %}
   </p>
 
-  <label class="file-input disabled" for="images">
-    <img src="{% static 'register/img/photo.png' %}" alt="Photo icon">
-    Upload images
-  </label>
-  <input type="file" id="images" name="images" oninput="validateFiles(this);" accept=".jpg,.jpeg" multiple disabled></input>
+  <div class="row">
+    <div class="col images">
+      <label class="file-input disabled" for="images">
+        <img src="{% static 'register/img/photo.png' %}" alt="Photo icon">
+        Upload images
+      </label>
+      <input type="file" id="images" name="images" maxlength="25" oninput="validateFiles(this);" accept=".jpg,.jpeg" multiple disabled></input>
 
-  <p id="fileCount"> 0 files selected </p>
+      <p class="text-center" id="fileCount"> 0 files selected </p>
+    </div>
 
-  <button type="submit" disabled> Upload </button>
+    <div class="col identifiers">
+      <h3 class="text-center"> Use filenames as identifiers: </h3>
+
+      <div class="radio-group hover-popup">
+        <input type="checkbox" id="infer_id" name="infer_id" onclick="$('#id_prefix').removeClass('active');$('#no_infer_id').removeClass('selected');" checked>
+        <label for="infer_id"> Yes </label>
+
+        <label id="no_infer_id" onclick="selectAutoGen();"> No </label>
+      </div>
+
+      <input type="text" id="id_prefix" name="id_prefix" value="" maxlength="10" placeholder="ID prefix (optional)">
+
+      <br>
+
+      <button type="submit" disabled> Upload </button>
+    </div>
+  </div>
 </form>
 
 {% endblock %}
@@ -68,6 +87,14 @@
     "{{ tank }}",
     {% endfor %}
   ]
+
+  async function selectAutoGen() {
+    $('#id_prefix').addClass('active');
+    $('#no_infer_id').addClass('selected');
+    await new Promise((resolve) => setTimeout(resolve, 100));
+    $('#id_prefix').focus();
+    $('#infer_id').prop('checked', false);
+  }
 </script>
 
 <script src="{% static 'home/js/ajax.js' %}"></script>

@@ -3,8 +3,12 @@
 import os
 import string
 import random
+import traceback
+
+from cukecv.aux.exceptions import NoCukeFoundError
 
 from django.conf import settings
+from cukeweb.exceptions import DuplicateCukeError
 from .models import Cucumber
 
 import logging
@@ -13,7 +17,7 @@ logger = logging.getLogger('main')
 alphanumeric = string.ascii_letters + string.digits
 
 
-class RegistrationReport:
+class Registration:
     """Holds information about cucumber registration event."""
 
     def __init__(self, tank_id):
@@ -70,17 +74,21 @@ class RegistrationReport:
         }
 
 
-def register(FILES, tank):
+def register(FILES, tank, infer_id=True, prefix_id=""):
     """Register the images to the given tank."""
-    report = RegistrationReport(tank.identifier)
+    purge_temps(['images', 'reports'])
+    report = Registration(tank.identifier)
 
     for f in FILES.getlist('images'):
         print("Registering cucumber from image %s" % f.name)
         try:
-            c = Cucumber.register(f, tank)
+            c = Cucumber.register(f, tank, infer_id=infer_id,
+                                  prefix_id=prefix_id)
             report.add(c)
+        except (NoCukeFoundError, DuplicateCukeError) as exc:
+            report.fail(f, exc)
         except Exception as exc:
-            # Usually NoCukeFoundError or DuplicateCucumberError
+            logger.error(traceback.format_exc())
             report.fail(f, exc)
     return report
 
@@ -91,3 +99,22 @@ def save_temp(file, path):
     with open(path, 'wb') as temp:
         for chunk in file.chunks():
             temp.write(chunk)
+
+
+def purge_temps(dirs):
+    """Delete all existing files in the given temp directories."""
+    if type(dirs) is not list:
+        dirs = [dirs]
+    logger.info('Purging temp files from directory %s' %
+                ', '.join(dirs))
+
+    for d in dirs:
+        path = os.path.join(settings.MEDIA_ROOT, 'temp', d)
+        for f in os.listdir(path):
+            fpath = os.path.join(path, f)
+            try:
+                os.remove(fpath)
+            except PermissionError:
+                logger.warning(
+                    "Permission denied removing temp file %s" % fpath)
+                pass

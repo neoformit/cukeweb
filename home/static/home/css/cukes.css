@@ -2,6 +2,8 @@
   --bright: #a5acb1;
   --button-main: rgba(126,172,170,0.1);
   --button-hov: rgba(126,172,170,0.25);
+  --dodger: #007bff;
+  --dodger-faded: rgba(0,123,255,0.6);
 }
 
 body {
@@ -11,6 +13,9 @@ body {
 }
 h1, h2, h3, h4, h5, h6 {
   font-weight: lighter;
+}
+.text-center {
+  text-align: center;
 }
 
 /* Header template */
@@ -45,8 +50,8 @@ div.background img {
   height: 100vh;
 }
 div.main {
-  width: calc(100vw - 16px);
-  min-height: calc(100vh - 16px);
+  width: calc(100vw - 25px);
+  min-height: calc(100vh - 66px);
   padding-bottom: 50px;
   overflow: hidden;
   position: relative;
@@ -164,7 +169,7 @@ button, a.button {
   display: inline-block;
   text-align: center;
   text-decoration: none;
-  background-color: rgba(30,100,190,0.5);
+  background-color: var(--dodger-faded);
   font-size: 1.5rem;
   width: fit-content;
   min-width: 100px;
@@ -175,7 +180,7 @@ button, a.button {
   transition-duration: 0.25s;
 }
 button:hover, a.button:hover {
-  background-color: rgba(30,100,190);
+  background-color: var(--dodger);
 }
 button:disabled, a.button:disabled {
   color: #555;
@@ -213,6 +218,37 @@ button.warn:hover {
   border-radius: 10px;
   box-shadow: 0 0 15px 0 firebrick;
 }
+.hover-popup {
+  position: relative;
+}
+.hover-popup::after {
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -140px;
+  width: 100px;
+  height: auto;
+  padding: 10px;
+  color: #222;
+  background-color: #eee;
+  border-radius: 10px;
+  content: "";
+}
+.hover-popup::before {
+  position: absolute;
+  opacity: 0;
+  top: 13px;
+  right: -35px;
+  width: 20px;
+  height: 20px;
+  background-color: #eee;
+  transform: rotate(115deg) skewY(45deg);
+  content: "";
+}
+.hover-popup:hover::after,
+.hover-popup:hover::before {
+  opacity: 1;
+}
 
 /* Homepage */
 div.home-button-group {
@@ -235,6 +271,7 @@ div.home-button-group a.button {
   vertical-align: middle;
   background-color: var(--button-main);
   padding: 25px;
+  border: none;
   border-radius: 10px;
   height: 150px;
   width: 200px;
@@ -244,4 +281,5 @@ div.home-button-group a.button:hover {
   cursor: pointer;
   text-decoration: none;
   background-color: rgba(126,172,170,0.25);
+  box-shadow: 0 0 15px rgba(0, 120, 250, 0.5);
 }

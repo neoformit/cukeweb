@@ -23,7 +23,15 @@ def register(request):
         form = RegistrationForm(request.POST, request.FILES)
         if form.is_valid():
             tank = get_or_create_tank(form.cleaned_data['tank_id'])
-            report = uploads.register(request.FILES, tank)
+            print("\nReceived new registration form:")
+            print("infer_id: %s" % form.cleaned_data['infer_id'])
+            print("prefix_id: %s" % form.cleaned_data['id_prefix'])
+            report = uploads.register(
+                request.FILES,
+                tank,
+                infer_id=form.cleaned_data['infer_id'],
+                prefix_id=form.cleaned_data['id_prefix']
+            )
             # Session data for access by pdf.render
             request.session['registration_data'] = report.report_data()
             return render(request, 'register/confirm.html',

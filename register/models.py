@@ -15,7 +15,7 @@ from django.core.files import File
 from django.contrib.postgres.fields import JSONField
 
 from .filename import image_upload_path
-from cukeweb.exceptions import DuplicateCucumberError
+from cukeweb.exceptions import DuplicateCukeError
 
 import logging
 logger = logging.getLogger('main')
@@ -38,16 +38,21 @@ class Cucumber(models.Model):
     features = JSONField(null=True)    # Serialized cukecv.Cuke instance
 
     @classmethod
-    def register(cls, file, tank):
+    def register(cls, file, tank, infer_id=True, prefix_id=""):
         """Register the cucumber on file to the given tank.
 
         Returns a list of errors resulting from Cuke rendering.
         """
-        cid = file.name.split('/')[-1].rsplit('.', 1)[0]
+        if infer_id:
+            cid = file.name.split('/')[-1].rsplit('.', 1)[0]
+        else:
+            prefix = prefix_id or "cuke_"
+            cid = cls.create_new_id(tank, prefix)
         if cls.objects.filter(tank=tank, identifier=cid):
-            raise DuplicateCucumberError(
+            raise DuplicateCukeError(
                 "A cucumber with this identifier has already been registered"
-                " to this tank. Please try again with a different filename."
+                " to this tank. Please try again with a different filename or"
+                " choose to auto-generate identifiers during registration."
             )
         try:
             c = cls.objects.create(
@@ -60,8 +65,20 @@ class Cucumber(models.Model):
             c.save()
             logger.info('Registered cuke %s to tank %s' %
                         (c.identifier, tank.identifier))
+            return c
         except Exception as exc:
             # Don't save cucumbers that were rejected by cukecv
             c.delete()
             logger.warning('Cuke registration failed: %s' % str(exc))
             raise exc
+
+    @classmethod
+    def create_new_id(cls, tank, prefix):
+        """Return a unique id index based on given prefix."""
+        existing = cls.objects.filter(
+            tank=tank, identifier__startswith=prefix).values_list(
+            'identifier', flat=True)
+        if existing:
+            next_ix = max([int(x[-4:]) for x in existing]) + 1
+            return prefix + ("0000" + str(next_ix))[-4:]
+        return prefix + "0001"

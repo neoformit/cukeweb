@@ -6,3 +6,5 @@ class RegistrationForm(forms.Form):
 
     tank_id = forms.CharField(max_length=25)
     images = forms.FileField()
+    infer_id = forms.BooleanField(required=False)
+    id_prefix = forms.CharField(max_length=10, required=False)

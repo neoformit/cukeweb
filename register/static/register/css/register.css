@@ -1,5 +1,5 @@
 /* Register page */
-form.register-form-group {
+form {
   width: 50vw;
   display: flex;
   flex-direction: column;
@@ -10,19 +10,19 @@ form.register-form-group {
   left: 50%;
   transform: translate(-50%, -50%);
 }
-form.register-form-group .tanks {
+form .tanks {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
-form.register-form-group .tanks > * {
+form .tanks > * {
   margin: 50px 30px;
 }
-form.register-form-group .input-box input {
+form .input-box input {
   width: 320px;
 }
-form.register-form-group .dropdown select {
+form .dropdown select {
   color: inherit;
   width: 350px;
   padding: 15px;
@@ -32,29 +32,29 @@ form.register-form-group .dropdown select {
   border: none;
   border-radius: 10px;
 }
-form.register-form-group .dropdown option {
+form .dropdown option {
   color: black;
   padding: 15px;
   font-size: 1.5rem;
 }
-form.register-form-group p {
+form p {
   font-size: 1.5rem;
   font-weight: normal;
   margin-top: 0;
   margin-bottom: 35px;
 }
-form.register-form-group p.error-msg {
+form p.error-msg {
   height: 23.5px;
 }
-form.register-form-group .input-box,
-form.register-form-group .dropdown {
+form .input-box,
+form .dropdown {
   position: relative;
 }
-form.register-form-group div.valid input,
-form.register-form-group div.valid select {
+form div.valid input,
+form div.valid select {
   box-shadow: 0 0 10px 2px lawngreen;
 }
-form.register-form-group div.valid::after {
+form div.valid::after {
   content: "";
   display: block;
   position: absolute;
@@ -66,6 +66,73 @@ form.register-form-group div.valid::after {
   border-top: none;
   border-right: none;
   transform: rotate(-60deg);
+}
+form div.identifiers {
+  margin: 0 50px 50px 50px;
+  align-items: center;
+  justify-content: center;
+}
+form div.radio-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  position: relative;
+}
+form div.identifiers input[type="checkbox"] {
+  width: 0;
+  height: 0;
+  padding: 0;
+  margin: 0;
+}
+form div.identifiers label {
+  color: black;
+  margin: 0;
+  padding: 10px;
+  font-size: 1.25rem;
+  background-color: rgba(200,200,200,0.5);
+  cursor: pointer;
+  transition-duration: 0.25s;
+}
+form div.identifiers label:hover {
+  background-color: rgba(200,200,200,1);
+}
+form div.identifiers input:checked+label {
+  color: white;
+  background-color: var(--dodger);
+}
+form div.identifiers #no_infer_id.selected {
+  color: white;
+  background-color: var(--dodger);
+}
+form div.identifiers label:first-of-type {
+  border-radius: 10px 0 0 10px;
+}
+form div.identifiers label:last-of-type {
+  border-radius: 0 10px 10px 0;
+}
+form div.identifiers > input {
+  visibility: hidden;
+  height: 0;
+  padding: 0;
+  margin-top: 10px;
+  transition-duration: 0.25s;
+}
+form div.identifiers > input.active {
+  visibility: visible;
+  height: auto;
+  padding: 15px;
+}
+form div.radio-group.hover-popup::after {
+  top: -5px;
+  right: -175px;
+  width: 130px;
+  content: "If not, IDs will be auto-generated";
+}
+form div.radio-group.hover-popup::before {
+  top: 2px;
+  right: -70px;
+  width: 40px;
+  height: 40px;
 }
 
 /* Confirmation page */
@@ -98,37 +165,8 @@ div.invalid .col {
 div.invalid .col.text {
   max-width: 400px;
 }
-div.invalid button.warn {
-  position: relative;
-}
-div.invalid button.warn::after {
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  right: -140px;
-  width: 100px;
-  height: auto;
-  padding: 10px;
-  color: #222;
-  background-color: #eee;
-  border-radius: 10px;
-  font-size: 0.75rem;
+div.invalid button.warn.hover-popup::after {
   content: "Notify developer if this is a bug";
-}
-div.invalid button.warn::before {
-  position: absolute;
-  opacity: 0;
-  top: 13px;
-  right: -35px;
-  width: 20px;
-  height: 20px;
-  background-color: #eee;
-  transform: rotate(115deg) skewY(45deg);
-  content: "";
-}
-div.invalid button.warn:hover::after,
-div.invalid button.warn:hover::before {
-  opacity: 1;
 }
 div.invalid img {
   height: 200px;
