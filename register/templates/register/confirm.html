@@ -45,7 +45,7 @@
     <div class="col text">
       <h4 class="error-msg"> <b>File:</b> {{ item.filename }} </h4>
       <h4 class="error-msg"> <b>Error:</b> {{ item.message }} </h4>
-      <button class="warn hover-popup" type="button" onclick="reportError('{{ item.name }}');"> Report bug </button>
+      <button class="warn tooltip" type="button" onclick="reportError('{{ item.name }}');"> Report bug </button>
     </div>
   </div>
   {% endfor %}

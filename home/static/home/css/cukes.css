@@ -218,10 +218,10 @@ button.warn:hover {
   border-radius: 10px;
   box-shadow: 0 0 15px 0 firebrick;
 }
-.hover-popup {
+.tooltip {
   position: relative;
 }
-.hover-popup::after {
+.tooltip::after {
   position: absolute;
   opacity: 0;
   top: 0;
@@ -234,7 +234,7 @@ button.warn:hover {
   border-radius: 10px;
   content: "";
 }
-.hover-popup::before {
+.tooltip::before {
   position: absolute;
   opacity: 0;
   top: 13px;
@@ -245,8 +245,8 @@ button.warn:hover {
   transform: rotate(115deg) skewY(45deg);
   content: "";
 }
-.hover-popup:hover::after,
-.hover-popup:hover::before {
+.tooltip:hover::after,
+.tooltip:hover::before {
   opacity: 1;
 }
 

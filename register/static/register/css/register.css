@@ -122,13 +122,13 @@ form div.identifiers > input.active {
   height: auto;
   padding: 15px;
 }
-form div.radio-group.hover-popup::after {
+form div.radio-group.tooltip::after {
   top: -5px;
   right: -175px;
   width: 130px;
-  content: "If not, IDs will be auto-generated";
+  content: "Take cucumber IDs from filenames. If 'No' IDs will be auto-generated";
 }
-form div.radio-group.hover-popup::before {
+form div.radio-group.tooltip::before {
   top: 2px;
   right: -70px;
   width: 40px;
@@ -165,7 +165,7 @@ div.invalid .col {
 div.invalid .col.text {
   max-width: 400px;
 }
-div.invalid button.warn.hover-popup::after {
+div.invalid button.warn.tooltip::after {
   content: "Notify developer if this is a bug";
 }
 div.invalid img {
