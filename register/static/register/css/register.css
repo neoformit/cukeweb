@@ -124,8 +124,8 @@ form div.identifiers > input.active {
 }
 form div.radio-group.tooltip::after {
   top: -5px;
-  right: -175px;
-  width: 130px;
+  right: -245px;
+  width: 200px;
   content: "Take cucumber IDs from filenames. If 'No' IDs will be auto-generated";
 }
 form div.radio-group.tooltip::before {

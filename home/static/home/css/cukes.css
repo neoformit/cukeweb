@@ -89,13 +89,25 @@ div.header a {
 div.header a:hover {
   box-shadow: 0 0 5px 1px #ccc;
 }
-div.header a:hover::after {
+div.header a::after {
   text-align: center;
   color: white;
-  content: "Home";
+  content: "";
   position: absolute;
   left: 9px;
   bottom: -25px;
+  transition-duration: 0.25s;
+  opacity: 0;
+}
+div.header a:hover::after {
+  opacity: 1;
+}
+div.header a.info::after {
+  left: 15px;
+  content: "Info";
+}
+div.header a.home::after {
+  content: "Home";
 }
 div.header a img {
   display: inline;
