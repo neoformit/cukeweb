@@ -1,0 +1,100 @@
+{% extends "home/header.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'match/css/match.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="header">
+  <a class="home" href="/"> <img src="{% static 'home/img/home.png' %}" alt="Homepage"> </a>
+  <h2> The cuke register </h2>
+  <h1>Match registered animals</h1>
+</div>
+
+<form class="match-form-group" enctype="multipart/form-data" action="/match/" onsubmit="return formSubmit();" method="post">
+
+  {% csrf_token %}
+
+  <div class="container tanks">
+    <div class="dropdown">
+      <select class="form-control" name="tank_id_select" id="tank_id_select" onchange="fetchRegister(this.value);">
+        <option value="" selected> Select a tank </option>
+        {% for tank in tanks %}
+        <option value="{{ tank }}"> {{ tank }} </option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+
+  <div class="targets">
+    <div class="select">
+      <input type="text" name="target_animal" onfocus="searchTargets(this.value);" oninput="searchTargets(this.value);" onblur="blurTargetsInput(this);" value="" placeholder="Target animal IDs (optional)" disabled>
+      <img class="spinner" src="{% static 'home/img/spinner.svg' %}"/>
+      <div class="dropdown">
+        <!-- js-filled -->
+        <div class="option" onclick="selectTarget(this)"> cuke_0001 </div>
+        <div class="option" onclick="selectTarget(this)"> cuke_0001 </div>
+        <div class="option" onclick="selectTarget(this)"> cuke_0001 </div>
+        <div class="option" onclick="selectTarget(this)"> cuke_0001 </div>
+        <div class="option" onclick="selectTarget(this)"> cuke_0001 </div>
+        <div class="option" onclick="selectTarget(this)"> cuke_0001 </div>
+        <div class="option" onclick="selectTarget(this)"> cuke_0001 </div>
+        <div class="option" onclick="selectTarget(this)"> cuke_0001 </div>
+      </div>
+    </div>
+
+    <div class="selected">
+      <!-- js-filled -->
+      <!-- <div id="cuke_0001"> cuke_0001 <span onclick="$(this).parent().remove();">&times;</span> </div> -->
+    </div>
+
+    <input id="target_ids" type="hidden" name="target_ids" value="">
+  </div>
+
+  <p class="error-msg">
+    <!-- js and django-filled -->
+    {% if error_msg %}
+    Invalid form:
+    <br>
+    {{ error_msg }}
+    {% endif %}
+  </p>
+
+  <div class="row">
+    <div class="col images">
+      <label class="file-input disabled" for="images">
+        <img src="{% static 'register/img/photo.png' %}" alt="Photo icon">
+        Upload images
+      </label>
+      <input type="file" id="images" name="images" maxlength="25" oninput="validateFiles(this);" accept=".jpg,.jpeg" multiple disabled></input>
+
+      <p class="text-center" id="fileCount"> 0 files selected </p>
+    </div>
+
+  </div>
+
+  <div class="row text-center">
+    <button type="submit" disabled> Upload </button>
+  </div>
+</form>
+
+{% endblock %}
+
+
+{% block javascript %}
+
+<script type="text/javascript">
+  const existingTanks = [
+    {% for tank in tanks %}
+    "{{ tank }}",
+    {% endfor %}
+  ]
+</script>
+
+<script src="{% static 'home/js/ajax.js' %}"></script>
+<script src="{% static 'match/js/match.js' %}"></script>
+<script src="{% static 'match/js/targets.js' %}"></script>
+
+{% endblock %}

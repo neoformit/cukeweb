@@ -164,8 +164,8 @@ label.file-input.disabled {
   cursor: not-allowed;
   opacity: 0.25;
 }
-label.file-input:not('disabled'):hover {
-  box-shadow: 0 0 10px 2px #aaa;
+label.file-input:not(.disabled):hover {
+  box-shadow: 0 0 10px 2px var(--dodger);
   background-color: var(--button-hov);
 }
 label.file-input.valid {
@@ -198,6 +198,10 @@ button:disabled, a.button:disabled {
   color: #555;
   background-color: rgba(100,100,100,0.25);
   border: none;
+  cursor: not-allowed;
+}
+input[type="text"]:disabled {
+  opacity: 0.25;
   cursor: not-allowed;
 }
 button.warn {
