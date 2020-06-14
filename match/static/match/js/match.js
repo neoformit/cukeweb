@@ -3,7 +3,7 @@ function validateTank(tank_id) {
     if (value != '') {
         selectTank(tank_id)
     } else {
-        invalidSelect()
+        invalidTankSelection()
     }
 }
 

@@ -62,7 +62,7 @@ class Cucumber(models.Model):
                 tank=tank,
                 source_image=File(file),    # from TemporaryUploadedFile
             )
-            cuke = cukecv.Cuke(c.source_image.name)
+            cuke = cukecv.Cuke(c.source_image.path)
             c.features = cuke.to_dict()
             c.save()
             logger.info('Registered cuke %s to tank %s' %

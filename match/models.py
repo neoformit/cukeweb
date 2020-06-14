@@ -167,6 +167,7 @@ class Match(models.Model):
             match.traceback = traceback.format_exc()
             logger.error(match.traceback)
         match.save()
+        logger.info("Image matching complete.")
         return match
 
     def fetch_next_match(self, index):

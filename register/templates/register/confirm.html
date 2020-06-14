@@ -19,6 +19,10 @@
 
 <div class="confirm">
 
+  <a class="button" href="/register/report" target="_blank"> PDF report </a>
+  <br>
+  <a class="button" href="/register"> Register again </a>
+
   {% if failed %}
 
   {% if count %}
@@ -29,9 +33,6 @@
   <h2 class="error-msg box">Sorry, none of the images could be registered</h2>
   <br>
   {% endif %}
-
-  <a class="button" href="/register/report" target="_blank"> PDF report </a>
-  <br>
 
   <div class="container invalid">
   {% for item in failed %}
@@ -52,19 +53,13 @@
   </div>
 
   {% else %}
-
   <!-- Success graphic -->
   <h2 class="success-msg box">{{ count }} animals registered successfully</h2>
   <br>
   <br>
   <img src="{% static 'register/img/success.png' %}" alt="Success icon">
-
   {% endif %}
 
 </div>
-
-<a class="button" href="/"> Home </a>
-<br>
-<a class="button" href="/register"> Register more </a>
 
 {% endblock %}

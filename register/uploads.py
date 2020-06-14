@@ -85,7 +85,6 @@ def register(FILES, tank, infer_id=True, prefix_id=""):
     report = RegistrationReport(tank.identifier)
 
     for f in FILES.getlist('images'):
-        print("Registering cucumber from image %s" % f.name)
         try:
             c = Cucumber.register(f, tank, infer_id=infer_id,
                                   prefix_id=prefix_id)

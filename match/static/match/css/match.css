@@ -101,6 +101,13 @@ div.targets .dropdown .option:last-child {
 div.targets .dropdown .option:hover {
   background-color: #161b1f;
 }
+div.targets .dropdown .option.blank {
+  color: gold;
+  cursor: default;
+}
+div.targets .dropdown .option.blank:hover {
+  background-color: transparent;
+}
 div.targets .selected {
   display: flex;
   flex-direction: row;

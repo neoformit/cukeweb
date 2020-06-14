@@ -1,9 +1,14 @@
 table {
   margin: 50px;
-  border-collapse: collapse;
   font-size: 1.25rem;
+  text-align: center;
+  border-collapse: collapse;
+  width: 100%;
   max-width: 1400px;
   background-color: rgba(0,0,0,0.5);
+}
+thead {
+  background-color: #111;
 }
 th, td {
   padding: 10px 25px;
@@ -16,18 +21,25 @@ td img {
   border-radius: 10px;
 }
 tr.selected {
-  background-color: rgba(10,10,150,0.1);
-  box-shadow: 0 0 15px rgba(15,15,180,0.75)
+  background-color: rgba(10,50,200,0.1);
+  box-shadow: 0 0 15px rgba(15,100,250,0.75)
 }
 td .row {
   align-items: center;
 }
+td.details .row {
+  justify-content: space-between;
+}
+td.query p,
+td.match p {
+  margin: 5px 0;
+}
 div.score {
   color: white;
-  margin: 10px 10px 10px 50px;
+  margin: 10px;
   font-weight: bold;
   text-align: center;
-  height: 65px;
+  height: 35px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -37,15 +49,18 @@ div.score p {
   margin: 0 20px;
 }
 div.istarget {
-  color: white;
+  color: var(--dodger);
   font-weight: bold;
   text-align: center;
   padding: 5px 10px;
   border-radius: 10px;
-  background-color: seagreen;
-  box-shadow: 0 0 10px seagreen;
+  background-color: none;
+  box-shadow: 0 0 10px var(--dodger);
 }
 td.action button {
   display: block;
-  margin: 10px;
+  margin: 10px auto;
+}
+td.action button:focus {
+  outline: none;
 }

@@ -30,35 +30,33 @@
   </thead>
 
   {% for match in matched %}
-  <tr class="selected">
+  <tr>
     <td class="query">
-      <p> Filename: {{ match.query_filename }} </p>
       <img src="{{ match.query_img_uri }}" alt="Query image">
+      <p> {{ match.query_filename }} </p>
     </td>
 
     <td class="match">
       <img src="{{ match.img_uri }}" alt="Match image">
+      <p> Identity: <b>{{ match.id }}</b> </p>
     </td>
 
     <td class="details">
-      <div class="row">
-        <div>
-          {% if match.is_target %}
-          <div class="istarget"> Target </div>
-          {% endif %}
-          <p> Identity: {{ match.id }} </p>
-          <p> Registered: {{ match.date_registered|date:"j M Y" }} </p>
-        </div>
+      <div class="col">
+        {% if match.is_target %}
+        <div class="istarget"> Target </div>
+        {% endif %}
+
+        <p> Registered: <b>{{ match.date_registered|date:"j M Y" }}</b> </p>
 
         <div class="score" style="background-color: {{ match.score_color }};">
-          <p>Score</p>
-          <p>{{ match.score }}</p>
+          <p>Score {{ match.score }}</p>
         </div>
       </div>
     </td>
 
     <td class="action">
-      <button class="select" type="button" onclick="toggleSelect();"> Select </button>
+      <button class="select" type="button" onclick="toggleResultSelect(this);"> Select </button>
       <button class="warn" type="button"> Reject </button>
     </td>
   </tr>
@@ -98,5 +96,5 @@
 
 
 {% block javascript %}
-
+<script src="{% static 'match/js/result.js' %}"></script>
 {% endblock %}

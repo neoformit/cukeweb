@@ -66,7 +66,7 @@ function populateIdDropdown(ids) {
 
     if (!ids.length) {
         dropdown.empty();
-        const option = $('<div class="no-ids"> No matching IDs in this tank </div>')
+        const option = $('<div class="option blank"> No matching IDs in this tank </div>')
         dropdown.append(option);
         dropdown.css('opacity', '1');
         return
