@@ -128,7 +128,8 @@ function invalidFiles() {
     $('input:file').val('');
     $('label.file-input').removeClass('valid');
     $('#fileCount').text('0 files selected')
-    $('form.register-form-group .error-msg').text('Must be either .jpg or .jpeg files!');
+    $('form.register-form-group .error-msg').text(
+        'Must be either .jpg or .jpeg files!');
 }
 
 function validateForm() {
@@ -154,7 +155,8 @@ function formSubmit() {
             $('#tank_id').val(existing_tank);
             return true
         }
-        $('form.register-form-group .error-msg').text('A tank identifier must be provided');
+        $('form.register-form-group .error-msg').text(
+            'A tank identifier must be provided');
         return false
     }
 }

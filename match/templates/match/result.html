@@ -1,0 +1,102 @@
+{% extends "home/header.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'match/css/match-result.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="header">
+  <a class="home" href="/"> <img src="{% static 'home/img/home.png' %}" alt="Homepage"> </a>
+  <h2> The cuke register </h2>
+  <h1>Match results</h1>
+</div>
+
+
+<h2> Matched {{ matched|length }} images to tank "{{ tank_id }}" </h2>
+
+{% if failed|length %}
+<h2 class="error-msg"> {{ failed|length }} images failed to match </h2>
+{% endif %}
+
+{% if matched|length %}
+<table class="match">
+  <thead>
+    <th>Query</th>
+    <th>Match</th>
+    <th>Details</th>
+    <th>Action</th>
+  </thead>
+
+  {% for match in matched %}
+  <tr class="selected">
+    <td class="query">
+      <p> Filename: {{ match.query_filename }} </p>
+      <img src="{{ match.query_img_uri }}" alt="Query image">
+    </td>
+
+    <td class="match">
+      <img src="{{ match.img_uri }}" alt="Match image">
+    </td>
+
+    <td class="details">
+      <div class="row">
+        <div>
+          {% if match.is_target %}
+          <div class="istarget"> Target </div>
+          {% endif %}
+          <p> Identity: {{ match.id }} </p>
+          <p> Registered: {{ match.date_registered|date:"j M Y" }} </p>
+        </div>
+
+        <div class="score" style="background-color: {{ match.score_color }};">
+          <p>Score</p>
+          <p>{{ match.score }}</p>
+        </div>
+      </div>
+    </td>
+
+    <td class="action">
+      <button class="select" type="button" onclick="toggleSelect();"> Select </button>
+      <button class="warn" type="button"> Reject </button>
+    </td>
+  </tr>
+{% endfor %}
+</table>
+{% endif %}
+
+{% if failed|length %}
+<table class="failed error-msg">
+  <thead>
+    <th>Failed query</th>
+    <th>Error message</th>
+    <th>Action</th>
+  </thead>
+
+  {% for f in failed %}
+  <tr>
+    <td class="query">
+      <p> Query filename: {{ f.query_filename }} </p>
+      <img src="{{ f.query_img_uri }}" alt="Query image">
+    </td>
+
+    <td class="exception">
+      {{ f.exception }}
+    </td>
+
+    <td class="action">
+      <button class="reject" type="button"> Report error </button>
+    </td>
+  </tr>
+{% endfor %}
+</table>
+{% endif %}
+
+
+{% endblock %}
+
+
+{% block javascript %}
+
+{% endblock %}

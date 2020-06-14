@@ -1,0 +1,51 @@
+table {
+  margin: 50px;
+  border-collapse: collapse;
+  font-size: 1.25rem;
+  max-width: 1400px;
+  background-color: rgba(0,0,0,0.5);
+}
+th, td {
+  padding: 10px 25px;
+  border: 2px solid rgba(200,200,200,0.2);
+  vertical-align: middle;
+}
+td img {
+  width: 10vw;
+  height: auto;
+  border-radius: 10px;
+}
+tr.selected {
+  background-color: rgba(10,10,150,0.1);
+  box-shadow: 0 0 15px rgba(15,15,180,0.75)
+}
+td .row {
+  align-items: center;
+}
+div.score {
+  color: white;
+  margin: 10px 10px 10px 50px;
+  font-weight: bold;
+  text-align: center;
+  height: 65px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 10px;
+}
+div.score p {
+  margin: 0 20px;
+}
+div.istarget {
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  padding: 5px 10px;
+  border-radius: 10px;
+  background-color: seagreen;
+  box-shadow: 0 0 10px seagreen;
+}
+td.action button {
+  display: block;
+  margin: 10px;
+}

@@ -8,8 +8,10 @@ import traceback
 from cukecv.aux.exceptions import NoCukeFoundError
 
 from django.conf import settings
-from cukeweb.exceptions import DuplicateCukeError
+
 from .models import Cucumber
+from utilities.temps import purge_temps
+from cukeweb.exceptions import DuplicateCukeError
 
 import logging
 logger = logging.getLogger('main')
@@ -79,7 +81,7 @@ class RegistrationReport:
 
 def register(FILES, tank, infer_id=True, prefix_id=""):
     """Register the images to the given tank."""
-    purge_temps(['images', 'reports'])
+    purge_temps('images', 'reports')
     report = RegistrationReport(tank.identifier)
 
     for f in FILES.getlist('images'):
@@ -102,22 +104,3 @@ def save_temp(file, path):
     with open(path, 'wb') as temp:
         for chunk in file.chunks():
             temp.write(chunk)
-
-
-def purge_temps(dirs):
-    """Delete all existing files in the given temp directories."""
-    if type(dirs) is not list:
-        dirs = [dirs]
-    logger.info('Purging temp files from directory %s' %
-                ', '.join(dirs))
-
-    for d in dirs:
-        path = os.path.join(settings.MEDIA_ROOT, 'temp', d)
-        for f in os.listdir(path):
-            fpath = os.path.join(path, f)
-            try:
-                os.remove(fpath)
-            except PermissionError:
-                logger.warning(
-                    "Permission denied removing temp file %s" % fpath)
-                pass

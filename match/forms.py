@@ -1,7 +1,6 @@
 """Forms for submitting an image match request."""
 
 from django import forms
-from .models import MatchSet
 
 
 class MatchForm(forms.Form):
@@ -9,7 +8,7 @@ class MatchForm(forms.Form):
 
     tank_id = forms.CharField(max_length=25)
     target_ids = forms.CharField()
-    images = forms.FileField()
+    images = forms.ImageField()
 
     def clean(self):
         """Validate and clean form data."""

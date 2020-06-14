@@ -1,7 +1,7 @@
-function validateTankSelect(select) {
+function validateTank(tank_id) {
     const value = $('form select').val();
     if (value != '') {
-        validSelect()
+        selectTank(tank_id)
     } else {
         invalidSelect()
     }
@@ -24,18 +24,20 @@ function resetForm() {
     $('div.targets .input').val('');
     $('div.targets .dropdown').empty();
     $('div.targets .selected').empty();
-    invalidDropdown();
+    invalidTankSelection();
 }
 
-function validDropdown() {
+function validTankSelection() {
     $('.tanks .dropdown').addClass('valid');
-    $('.targets input').removeAttr('disabled');
+    $('.file-input').removeClass('disabled');
+    $('input').removeAttr('disabled');
     validateForm()
 }
 
-function invalidDropdown() {
+function invalidTankSelection() {
     $('.tanks .dropdown').removeClass('valid');
-    $('.targets input').prop('disabled', 'true');
+    $('.file-input').addClass('disabled');
+    $('input').prop('disabled', 'true');
     validateForm()
 }
 

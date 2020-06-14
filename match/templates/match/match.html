@@ -13,13 +13,13 @@
   <h1>Match registered animals</h1>
 </div>
 
-<form class="match-form-group" enctype="multipart/form-data" action="/match/" onsubmit="return formSubmit();" method="post">
+<form class="match-form-group" enctype="multipart/form-data" action="/match/" method="post">
 
   {% csrf_token %}
 
   <div class="container tanks">
     <div class="dropdown">
-      <select class="form-control" name="tank_id_select" id="tank_id_select" onchange="fetchRegister(this.value);">
+      <select class="form-control" name="tank_id" id="tank_id_select" onchange="validateTank(this.value);">
         <option value="" selected> Select a tank </option>
         {% for tank in tanks %}
         <option value="{{ tank }}"> {{ tank }} </option>
@@ -69,7 +69,7 @@
   </div>
 
   <div class="row text-center">
-    <button type="submit" disabled> Upload </button>
+    <button type="submit" disabled> Run </button>
   </div>
 </form>
 

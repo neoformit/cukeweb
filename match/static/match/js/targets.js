@@ -1,16 +1,10 @@
 let globalNonse = new Object();
 let targetIds = [];
 
-function fetchRegister(tank_id) {
+function selectTank(tank_id) {
 
     // Reset form selection
     resetForm();
-
-    // Check that selection not null
-    if (tank_id === '') {
-        invalidDropdown();
-        return
-    }
 
     $('div.targets img.spinner').show();
 
@@ -23,17 +17,17 @@ function fetchRegister(tank_id) {
         success: function(json) {
             if (json.identifiers) {
                 targetIds = json.identifiers;
-                validDropdown()
+                validTankSelection()
             } else {
                 alert("Could not fetch any registered identifiers for this tank.");
-                invalidDropdown()
+                invalidTankSelection()
             }
             // Hide loading animation
             $('div.targets img.spinner').hide()
         },
         error: function(xhr, status, msg) {
             // alert("Server error fetching registered cukes");
-            invalidDropdown();
+            invalidTankSelection();
             const html = `<h1> Server error fetching registered IDs: </h1> <br><br> <pre> ${xhr.responseText.replace('\n', '<br>').replace('\r', '<br>')} </pre>`
             const newTab = window.open('about:blank', '_blank');
             newTab.document.write(html);
