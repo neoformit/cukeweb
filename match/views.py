@@ -1,9 +1,11 @@
 """Handle requests for image matching against the database."""
 
 from django.shortcuts import render, redirect
+from django.http import HttpResponseNotFound
+from django.core.exceptions import ObjectDoesNotExist
 
-import match
 from .forms import MatchForm
+from .models import MatchSet
 from register.models import Tank
 
 
@@ -13,15 +15,13 @@ def query(request):
     if request.method == "POST":
         form = MatchForm(request.POST)
         if form.is_valid():
-            match_id = match.make(form.cleaned_data)
-            matchset = form.save()
-            match.make(matchset)
+            # Run CV model and renders result data to matchset
+            match_id = MatchSet.create(form.cleaned_data, request.FILES)
             return redirect('/match/result/?id=%s' % match_id)
-        else:
-            return render(request, 'match/match.html', {
-                "form": form,
-                "tanks": tanks
-            })
+        return render(request, 'match/match.html', {
+            "form": form,
+            "tanks": tanks
+        })
     # Assume GET
     form = MatchForm()
     return render(request, 'match/match.html', {
@@ -32,4 +32,14 @@ def query(request):
 
 def result(request):
     """Retrieve match results and render to results interface."""
-    return None
+    requested_id = request.GET.get('id')
+    try:
+        matchset = MatchSet.objects.get(identifier=requested_id)
+    except ObjectDoesNotExist:
+        return HttpResponseNotFound()
+
+    return render(
+        request,
+        'match/result.html',
+        matchset.report.request_data()
+    )

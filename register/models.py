@@ -8,7 +8,7 @@ retained in a Django filefield for future reference (e.g. results interface)
 and for debugging purposes.
 """
 
-from cukecv.cukecv import Cuke
+import cukecv
 
 from django.db import models
 from django.core.files import File
@@ -42,6 +42,8 @@ class Cucumber(models.Model):
         """Register the cucumber on file to the given tank.
 
         Returns a list of errors resulting from Cuke rendering.
+
+        SHOULD MOVE TO INSTANCE METHOD OF TANK.
         """
         if infer_id:
             cid = file.name.split('/')[-1].rsplit('.', 1)[0]
@@ -60,7 +62,7 @@ class Cucumber(models.Model):
                 tank=tank,
                 source_image=File(file),    # from TemporaryUploadedFile
             )
-            cuke = Cuke(c.source_image.name)
+            cuke = cukecv.Cuke(c.source_image.name)
             c.features = cuke.to_dict()
             c.save()
             logger.info('Registered cuke %s to tank %s' %
@@ -74,7 +76,7 @@ class Cucumber(models.Model):
 
     @classmethod
     def create_new_id(cls, tank, prefix):
-        """Return a unique id index based on given prefix."""
+        """Return a unique id based on given prefix."""
         existing = cls.objects.filter(
             tank=tank, identifier__startswith=prefix).values_list(
             'identifier', flat=True)
