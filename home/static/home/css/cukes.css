@@ -75,21 +75,29 @@ div.header {
   margin: 50px 0;
   text-align: center;
 }
-div.header a {
+div.sidebar {
   position: fixed;
-  top: 50px;
-  left: 50px;
+  top: 0;
+  left: 0;
+  padding: 50px 25px;
+  display: flex;
+  flex-direction: column;
+}
+div.sidebar a {
   width: 50px;
   height: 50px;
   padding: 5px;
-  text-decoration: none;
+  margin: 25px;
+  display: block;
+  position: relative;
   border-radius: 5px;
+  text-decoration: none;
   transition-duration: 0.25s;
 }
-div.header a:hover {
+div.sidebar a:hover {
   box-shadow: 0 0 5px 1px #ccc;
 }
-div.header a::after {
+div.sidebar a::after {
   text-align: center;
   color: white;
   content: "";
@@ -99,17 +107,32 @@ div.header a::after {
   transition-duration: 0.25s;
   opacity: 0;
 }
-div.header a:hover::after {
+div.sidebar a:hover::after {
   opacity: 1;
 }
-div.header a.info::after {
-  left: 15px;
-  content: "Info";
-}
-div.header a.home::after {
+div.sidebar a.home::after {
   content: "Home";
 }
-div.header a img {
+div.sidebar a.info::after {
+  left: 16px;
+  content: "Info";
+}
+div.sidebar a.back::after {
+  left: 14px;
+  content: "Back";
+}
+div.sidebar a.download::after {
+  bottom: -45px;
+  left: -8px;
+  width: 80px;
+  content: "Download report";
+}
+div.sidebar a.share::after {
+  left: -10px;
+  width: 80px;
+  content: "Email link";
+}
+div.sidebar a img {
   display: inline;
   width: inherit;
   height: inherit;

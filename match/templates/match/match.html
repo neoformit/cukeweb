@@ -7,8 +7,12 @@
 
 {% block content %}
 
+<div class="sidebar">
+  <a class="home" href="/"> <img src="{% static 'icons/home.svg' %}" alt="Homepage"> </a>
+  <a class="info" href="/info"> <img src="{% static 'icons/info.svg' %}" alt="Information"> </a>
+</div>
+
 <div class="header">
-  <a class="home" href="/"> <img src="{% static 'home/img/home.png' %}" alt="Homepage"> </a>
   <h2> The cuke register </h2>
   <h1>Match registered animals</h1>
 </div>

@@ -3,15 +3,18 @@
 
 {% block content %}
 
+<div class="sidebar">
+  <a class="info" href="/info"> <img src="{% static 'icons/info.svg' %}" alt="Info"> </a>
+</div>
+
 <div class="header">
-  <a class="info" href="/info"> <img src="{% static 'home/img/info.png' %}" alt="Info"> </a>
   <h2>Welcome to...</h2>
   <h1>The cuke register</h1>
 </div>
 
 <div class="home-button-group">
   <a class="button" href="/register">
-    Register new animals
+    Register animals
   </a>
 
   <a class="button" href="/match">
@@ -19,7 +22,7 @@
   </a>
 
   <a class="button" href="/search">
-    Search registry
+    Manage registry
   </a>
 </div>
 

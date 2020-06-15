@@ -7,8 +7,14 @@
 
 {% block content %}
 
+<div class="sidebar">
+  <a class="home" href="/"> <img src="{% static 'icons/home.svg' %}" alt="Homepage"> </a>
+  <a class="info" href="/info"> <img src="{% static 'icons/info.svg' %}" alt="Information"> </a>
+  <a class="back" href="/register"> <img src="{% static 'icons/back.svg' %}" alt="Back"> </a>
+  <a class="download" href="/register/report" target="_blank"> <img src="{% static 'icons/download.svg' %}" alt="Homepage"> </a>
+</div>
+
 <div class="header">
-  <a href="/"> <img src="{% static 'home/img/home.png' %}" alt="Homepage"> </a>
   <h2>The cuke register</h2>
   {% if count %}
   <h1>Registration complete</h1>
@@ -18,10 +24,6 @@
 </div>
 
 <div class="confirm">
-
-  <a class="button" href="/register/report" target="_blank"> PDF report </a>
-  <br>
-  <a class="button" href="/register"> Register again </a>
 
   {% if failed %}
 

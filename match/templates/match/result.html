@@ -7,12 +7,18 @@
 
 {% block content %}
 
+<div class="sidebar">
+  <a class="home" href="/"> <img src="{% static 'icons/home.svg' %}" alt="Homepage"> </a>
+  <a class="info" href="/info"> <img src="{% static 'icons/info.svg' %}" alt="Information"> </a>
+  <a class="back" href="/match"> <img src="{% static 'icons/back.svg' %}" alt="Back"> </a>
+  <a class="share" href="#" onclick="emailLink();"> <img src="{% static 'icons/send.svg' %}" alt="Send link"> </a>
+  <a class="download" href="/match/report" target="_blank"> <img src="{% static 'icons/download.svg' %}" alt="Send link"> </a>
+</div>
+
 <div class="header">
-  <a class="home" href="/"> <img src="{% static 'home/img/home.png' %}" alt="Homepage"> </a>
   <h2> The cuke register </h2>
   <h1>Match results</h1>
 </div>
-
 
 <h2> Matched {{ matched|length }} images to tank "{{ tank_id }}" </h2>
 
@@ -44,7 +50,7 @@
     <td class="details">
       <div class="col">
         {% if match.is_target %}
-        <div class="istarget"> Target </div>
+        <div class="istarget"> Target animal </div>
         {% endif %}
 
         <p> Registered: <b>{{ match.date_registered|date:"j M Y" }}</b> </p>
