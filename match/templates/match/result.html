@@ -97,9 +97,24 @@
 {% endif %}
 
 
+<div class="overlay email-overlay" onclick="hideEmailForm();"></div>
+
+<div class="email offscreen">
+  <input type="text" placeholder="Email address"> <br>
+  <p class="error-msg"> <!-- js filled --> </p> <br>
+  <button type="button" onclick="sendEmail($(this).siblings('input').val());"> Send </button>
+
+  <!-- Hidden elements -->
+  <div class="success"></div>
+  <img class="spinner" src="{% static 'home/img/spinner.svg' %}" alt="Loading animation">
+</div>
+
+
 {% endblock %}
 
 
 {% block javascript %}
+<script src="{% static 'home/js/ajax.js' %}"></script>
 <script src="{% static 'match/js/result.js' %}"></script>
+<script src="{% static 'match/js/email.js' %}"></script>
 {% endblock %}

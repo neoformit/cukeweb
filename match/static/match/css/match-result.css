@@ -61,6 +61,62 @@ td.action button {
   display: block;
   margin: 10px auto;
 }
-td.action button:focus {
-  outline: none;
+td.action button.warn.tooltip::after {
+  top: -3px;
+  right: -190px;
+  width: 150px;
+  content: "Request next match if this looks incorrect";
+}
+div.email-overlay {
+  display: none;
+}
+div.email {
+  position: absolute;
+  top: 20vh;
+  left: 2vw;
+  transition-duration: 0.5s;
+}
+div.email.offscreen {
+  left: -20vw;
+}
+div.email .spinner {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: -90px;
+  width: 100px;
+}
+div.email .success {
+  display: none;
+  position: relative;
+  left: 215px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: green;
+  box-shadow: 0 0 15px 5px green;
+}
+div.email .success:after {
+  position: absolute;
+  top: 30%;
+  left: 15%;
+  z-index: 15;
+  width: 60%;
+  height: 20%;
+  border-left: 5px solid white;
+  border-bottom: 5px solid white;
+  transform: rotate(-55deg);
+  content: "";
+}
+div.email .success:before {
+  position: absolute;
+  top: 10px;
+  left: -150px;
+  color: green;
+  font-size: 1.5rem;
+  font-weight: normal;
+  content: "Email sent";
+}
+div.email p.error-msg {
+  margin: 0;
 }

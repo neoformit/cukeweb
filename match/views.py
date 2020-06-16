@@ -16,7 +16,9 @@ logger = logging.getLogger('main')
 
 def query(request):
     """Interface for user to request image match against database."""
-    tanks = Tank.objects.all().values_list("identifier", flat=True)
+    tank_ids = set(Tank.objects.filter(  # Only tanks containing cukes
+        cucumber__identifier__isnull=False).values_list(
+            "identifier", flat=True))
     if request.method == "POST":
         form = MatchForm(request.POST, request.FILES)
         if form.is_valid():
@@ -29,14 +31,22 @@ def query(request):
         logger.error("MatchForm errors: %s" % pprint.pformat(form.errors))
         return render(request, 'match/match.html', {
             "form": form,
-            "tanks": tanks
+            "tanks": tank_ids
         })
     # Assume GET
+    if not tank_ids:
+        return no_occupied_tanks(request)
+
     form = MatchForm()
     return render(request, 'match/match.html', {
         "form": form,
-        "tanks": tanks
+        "tanks": tank_ids
     })
+
+
+def no_occupied_tanks(request):
+    """User requested the match app with no cukes registered."""
+    return render(request, 'match/no-cukes.html')
 
 
 def result(request):
@@ -47,3 +57,15 @@ def result(request):
     except ObjectDoesNotExist:
         return HttpResponseNotFound()
     return render(request, 'match/result.html', matchset.render())
+
+
+def colors(request):
+    """View to play with score color scale."""
+    def color_scale(x):
+        g = round(200 * (x / 1000))
+        r = round(100 - g / 2)
+        b = 30
+        return "rgb(%s,%s,%s,0.75)" % (r, g, b)
+
+    colors = [(i, color_scale(i)) for i in range(0, 1000, 50)]
+    return render(request, 'match/colors.html', {'colors': colors})

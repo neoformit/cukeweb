@@ -28,11 +28,7 @@ function selectTank(tank_id) {
         error: function(xhr, status, msg) {
             // alert("Server error fetching registered cukes");
             invalidTankSelection();
-            const html = `<h1> Server error fetching registered IDs: </h1> <br><br> <pre> ${xhr.responseText.replace('\n', '<br>').replace('\r', '<br>')} </pre>`
-            const newTab = window.open('about:blank', '_blank');
-            newTab.document.write(html);
-            newTab.document.close();
-            newTab.focus()
+            newTabErrorMessage(xhr);
         },
     });
 }

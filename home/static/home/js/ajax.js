@@ -66,3 +66,12 @@ $(function() {
         }
     });
 });
+
+
+function newTabErrorMessage(xhr) {
+    const html = `<h1> Server error handling AJAX request: </h1> <br><br> <pre> ${xhr.responseText.replace('\n', '<br>').replace('\r', '<br>')} </pre>`
+    const newTab = window.open('about:blank', '_blank');
+    newTab.document.write(html);
+    newTab.document.close();
+    newTab.focus();
+}

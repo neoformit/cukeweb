@@ -181,12 +181,12 @@ class Match(models.Model):
         }
 
 
-def score_color(score):
+def score_color(x):
     """Calculate color value for given score (red --> green)."""
     max_score = 1000
-    if score > max_score:
-        score = max_score
-    green = int(200 * (score / max_score))
-    red = 200 - green
-    blue = 20
-    return "rgba(%s,%s,%s,0.75)" % (red, green, blue)
+    if x > max_score:
+        x = max_score
+    g = round(200 * (x / 1000))
+    r = round(100 - g / 2)
+    b = 30
+    return "rgba(%s,%s,%s,0.75)" % (r, g, b)
