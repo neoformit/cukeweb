@@ -49,5 +49,7 @@ def register(request):
 
 def report(request):
     """Generate a PDF report for user's most recent registration."""
+    # data = request.session['registration_data']
+    # return render(request, 'register/report.html', data)
     uri = pdf.render(request)
     return redirect(uri)

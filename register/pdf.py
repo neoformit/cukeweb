@@ -5,6 +5,9 @@ import pdfkit
 from django.conf import settings
 from django.template.loader import render_to_string
 
+import logging
+logger = logging.getLogger('main')
+
 
 def render(request):
     """Render to html template and convert to PDF."""
@@ -22,8 +25,15 @@ def render(request):
         'reports',
         filename
     )
+    sections = len(data['registered'] + data['failed'])
+    page_height = round(sections * 2.2)
+    logger.info("Printing to pdf with page height %scm" % page_height)
+
     pdfkit.from_string(
         render_to_string('register/report.html', data),
-        report_path
+        report_path,
+        options={
+            'page-height': '100cm',
+        }
     )
     return report_uri

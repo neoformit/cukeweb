@@ -35,7 +35,7 @@ class RegistrationReport:
         """Add a successfully registered cucumber instance."""
         self.registered.append({
             'id': cucumber.identifier,
-            'filename': cucumber.source_image.name,
+            'filename': os.path.basename(cucumber.source_image.name),
             'img_path': os.path.join(
                 settings.MEDIA_ROOT,
                 cucumber.source_image.path
@@ -54,11 +54,16 @@ class RegistrationReport:
                 break
         temp_uri = "%stemp/images/%s" % (settings.MEDIA_URL, temp_fname)
         save_temp(file, temp_path)
+
+        exc_msg = str(exc)
+        if "resolve rotation" in exc_msg:
+            exc_msg += " (Is the image in portrait orientation?)"
+
         self.failed.append({
-            "filename": file.name,
+            "filename": os.path.basename(file.name),
             "img_uri": temp_uri,
             "img_path": temp_path,
-            "message": str(exc)
+            "message": exc_msg,
         })
 
     def request_data(self):
@@ -71,11 +76,28 @@ class RegistrationReport:
 
     def report_data(self):
         """Render a pdf of this report."""
+        registered = self.registered
+        failed = self.failed
+
+        # Add flags for page breaks:
+        i = 0
+        for i, x in enumerate(self.registered):
+            if (i - 5) % 12 == 0:
+                registered[i]['break'] = True
+            else:
+                registered[i]['break'] = False
+
+        for j, x in enumerate(self.failed):
+            if (i - 5 + j) % 12 == 0:
+                failed[j]['break'] = True
+            else:
+                failed[j]['break'] = False
+
         return {
             'identifier': self.identifier,
             'tank_id': self.tank_id,
-            'registrations': self.registered,
-            'failed': self.failed,
+            'registered': registered,
+            'failed': failed,
         }
 
 
