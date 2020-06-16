@@ -28,7 +28,7 @@ def email_result_link(request):
                   + 'match/result/?id=%s' % request.POST['result_id'])
     subject = "Match result from The Cuke Register"
     body = 'View your recent image match result here:\n' + result_url
-    send_mail(subject, body, settings.DEFAULT_EMAIL, [address])
+    send_mail(subject, body, settings.SERVER_EMAIL, [address])
     return HttpResponse(status=200)
 
 
