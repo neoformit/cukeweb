@@ -1,6 +1,10 @@
 {% extends "home/header.html" %}
 {% load static %}
 
+{% block head %}
+<link rel="stylesheet" href="{% static 'match/css/match.css' %}">
+{% endblock %}
+
 {% block sidebar %}
   <a class="home" href="/"> <img src="{% static 'icons/home.svg' %}" alt="Homepage"> </a>
   <a class="info" href="/info" target="_blank"> <img src="{% static 'icons/info.svg' %}" alt="Information"> </a>
@@ -9,23 +13,16 @@
 {% block content %}
 
 <div class="header">
-  <h2>The cucumber registry</h2>
+  <h2> The cuke register </h2>
+  <h1>Match registered animals</h1>
 
-  <h1>Image match identification</h1>
+  <br><br><br><br>
 </div>
 
-<div class="home-button-group">
-  <a class="button" href="/register">
-    Register new animals
-  </a>
-
-  <a class="button" href="/match">
-    Image match
-  </a>
-
-  <a class="button" href="/search">
-    Search registry
-  </a>
+<div class="text-center">
+  {% for c in colors %}
+  <p style="background-color: {{ c.1 }}"> {{ c.0 }} ({{ c.1 }})</p>
+  {% endfor %}
 </div>
 
 {% endblock %}

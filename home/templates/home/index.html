@@ -1,11 +1,11 @@
 {% extends "home/header.html" %}
 {% load static %}
 
-{% block content %}
+{% block sidebar %}
+<a class="info" href="/info" target="_blank"> <img src="{% static 'icons/info.svg' %}" alt="Information"> </a>
+{% endblock %}
 
-<div class="sidebar">
-  <a class="info" href="/info"> <img src="{% static 'icons/info.svg' %}" alt="Info"> </a>
-</div>
+{% block content %}
 
 <div class="header">
   <h2>Welcome to...</h2>

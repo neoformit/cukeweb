@@ -1,0 +1,30 @@
+{% extends "home/header.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'match/css/match.css' %}">
+{% endblock %}
+
+{% block sidebar %}
+  <a class="home" href="/"> <img src="{% static 'icons/home.svg' %}" alt="Homepage"> </a>
+  <a class="info" href="/info" target="_blank"> <img src="{% static 'icons/info.svg' %}" alt="Information"> </a>
+{% endblock %}
+
+{% block content %}
+
+<div class="header">
+  <h2> The cuke register </h2>
+  <h1>Match registered animals</h1>
+
+  <br><br><br><br>
+</div>
+
+<div class="text-center">
+  <p style="font-size: 1.5rem;"> There are no registered animals to match against. </p>
+  <p style="font-size: 1.5rem;"> You must first register animals to a tank using the
+    <a href="/register">registration</a>
+    interface.
+  </p>
+</div>
+
+{% endblock %}

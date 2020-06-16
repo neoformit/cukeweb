@@ -13,13 +13,10 @@
   <link rel="stylesheet" href="{% static 'home/css/cukes.css' %}">
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-
   {% block head %}
   {% endblock %}
 
-
 </head>
-
 
 <body>
 
@@ -28,20 +25,21 @@
     <div class="overlay"></div>
   </div>
 
-  <div class="main">
-    {% block content %}
-    {% endblock %}
+  <div class="interface">
+    <div class="sidebar">
+      {% block sidebar %}
+      {% endblock %}
+    </div>
+
+    <div class="main">
+      {% block content %}
+      {% endblock %}
+    </div>
   </div>
 
-
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-  </script>
-
-
   {% block javascript %}
   {% endblock %}
-
 
 </body>
 

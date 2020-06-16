@@ -5,15 +5,14 @@
 <link rel="stylesheet" href="{% static 'register/css/register.css' %}">
 {% endblock %}
 
+{% block sidebar %}
+<a class="home" href="/"> <img src="{% static 'icons/home.svg' %}" alt="Homepage"> </a>
+<a class="info" href="/info" target="_blank"> <img src="{% static 'icons/info.svg' %}" alt="Information"> </a>
+<a class="back" href="/register"> <img src="{% static 'icons/back.svg' %}" alt="Back"> </a>
+<a class="download" href="/register/report" target="_blank"> <img src="{% static 'icons/download.svg' %}" alt="Homepage"> </a>
+{% endblock %}
+
 {% block content %}
-
-<div class="sidebar">
-  <a class="home" href="/"> <img src="{% static 'icons/home.svg' %}" alt="Homepage"> </a>
-  <a class="info" href="/info"> <img src="{% static 'icons/info.svg' %}" alt="Information"> </a>
-  <a class="back" href="/register"> <img src="{% static 'icons/back.svg' %}" alt="Back"> </a>
-  <a class="download" href="/register/report" target="_blank"> <img src="{% static 'icons/download.svg' %}" alt="Homepage"> </a>
-</div>
-
 <div class="header">
   <h2>The cuke register</h2>
   {% if count %}
@@ -28,7 +27,7 @@
   {% if failed %}
 
   {% if count %}
-  <h2 class="success-msg box">{{ count }} animal(s) registered to tank {{ tank_id }}</h2>
+  <h2 class="success-msg box">{{ count }} animal(s) registered to tank "{{ tank_id }}"</h2>
   <br>
   <h2 class="error-msg box"> {{ failed|length }} image(s) could not be registered: </h2>
   {% else %}
