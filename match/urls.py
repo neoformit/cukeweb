@@ -12,6 +12,7 @@ urlpatterns = [
 # Async request urls
 urlpatterns += [
     path("fetchids/", async_requests.fetch_cuke_ids, name="fetch_ids"),
+    path("reject/", async_requests.reject_match, name="reject_match"),
     path("sendmail/",
          async_requests.email_result_link, name="email_result_link"),
 ]

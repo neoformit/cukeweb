@@ -16,4 +16,8 @@ def make(query, subjects):
             subject,
         ))
     results.sort(key=itemgetter(0), reverse=True)
+    logger.info('Matched image %s with a high score of %.0f' % (
+        query.filename,
+        results[0][0]
+    ))
     return results

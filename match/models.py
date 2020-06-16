@@ -93,15 +93,16 @@ class MatchRecord(models.Model):
     def render(self):
         """Return dict for rendering confirmation page."""
         matches = [{
+            'id': m.identifier,
             'query_filename': os.path.basename(m.query_image.path),
             'query_img_uri': m.query_image.url,
             'query_img_path': m.query_image.path,
+            'match_img_uri': m.best_match.source_image.url,
+            'match_img_path': m.best_match.source_image.path,
+            'identity': m.best_match.identifier,
             'date_registered': m.best_match.date_created,
-            'id': m.best_match.identifier,
             "score": round(m.score),
             "score_color": score_color(m.score),
-            'img_uri': m.best_match.source_image.url,
-            'img_path': m.best_match.source_image.path,
             'is_target': m.is_target
         } for m in self.get_matches()]
 
@@ -114,6 +115,7 @@ class MatchRecord(models.Model):
 
         return {
             'tank_id': self.tank.identifier,
+            'result_id': self.identifier,
             'matched': matches,
             'failed': failed,
         }
@@ -132,7 +134,9 @@ class Match(models.Model):
         Cucumber, on_delete=models.CASCADE, null=True)
     score = models.FloatField(null=True)
     is_target = models.BooleanField(default=False)
-    backup_matches = JSONField(null=True)    # [(score, cucumber_pk), ... ]
+    rejected_matches = JSONField(default=list)  # [(score, cucumber_pk), ... ]
+    backup_matches = JSONField(null=True)       # [(score, cucumber_pk), ... ]
+    backup_index = models.IntegerField(default=0)
     exception = models.TextField(null=True)
     traceback = models.TextField(null=True)
 
@@ -170,15 +174,51 @@ class Match(models.Model):
         logger.info("Image matching complete.")
         return match
 
-    def fetch_next_match(self, index):
+    def fetch_next_match(self):
         """Fetch the next best match at the given index."""
-        score, subject_id = self.backup_matches[index]
-        cuke = Cucumber.objects.get(pk=subject_id)
-        return {
-            "score": score,
-            "identity": cuke.identifier,
-            "img_uri": cuke.source_image.url
+        old_identity = self.best_match.identifier
+        self.rejected_matches.insert(0, (self.score, self.best_match.id))
+        self.score, subject_id = self.backup_matches.pop(self.backup_index)
+        self.best_match = Cucumber.objects.get(pk=subject_id)
+        logger.info("Fetching next match. Replacing %s with %s" % (
+            old_identity,
+            self.best_match.identifier
+        ))
+        return self.new_match_data()
+
+    def fetch_previous_match(self):
+        """Fetch the last best match at the given index."""
+        old_identity = self.best_match.identifier
+        self.backup_matches.insert(0, (self.score, self.best_match.id))
+        self.score, subject_id = self.rejected_matches.pop(0)
+        self.best_match = Cucumber.objects.get(pk=subject_id)
+        logger.info("Fetching previous match. Replacing %s with %s" % (
+            old_identity,
+            self.best_match.identifier
+        ))
+        return self.new_match_data()
+
+    def new_match_data(self):
+        """Update match attributes and return new render data."""
+        if self.best_match.identifier in self.record.targets:
+            self.is_target = True
+        self.save()
+        str_date = self.best_match.date_created.strftime('%d %b %Y')
+        data = {
+            "first": False,
+            "last": False,
+            "score": self.score,
+            "score_color": score_color(self.score),
+            "identity": self.best_match.identifier,
+            "match_img_uri": self.best_match.source_image.url,
+            'date_registered': str_date,
+            'is_target': self.is_target,
         }
+        if not len(self.rejected_matches):
+            data['first'] = True
+        if not len(self.backup_matches):
+            data['last'] = True
+        return data
 
 
 def score_color(x):

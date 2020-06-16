@@ -27,7 +27,8 @@ tr.selected {
 td .row {
   align-items: center;
 }
-td.details .row {
+td.details .col {
+  align-items: center;
   justify-content: space-between;
 }
 td.query p,
@@ -66,6 +67,21 @@ td.action button.warn.tooltip::after {
   right: -190px;
   width: 150px;
   content: "Request next match if this looks incorrect";
+}
+td.action .undo {
+  display: block;
+  cursor: pointer;
+  width: 60px;
+  height: 60px;
+  margin: 10px auto;
+  opacity: 0.75;
+  border-radius: 50%;
+  transition-duration: 0.25s;
+}
+td.action .undo:hover {
+  opacity: 1;
+  background-color: rgba(252,191,8,0.1);
+  box-shadow: 0 0 10px gold;
 }
 div.email-overlay {
   display: none;
@@ -119,4 +135,16 @@ div.email .success:before {
 }
 div.email p.error-msg {
   margin: 0;
+}
+img.undo {
+  display: none;
+}
+
+/* Loading animations */
+td.match .spinner,
+td.details .spinner,
+td.action .spinner {
+  width: 100px;
+  height: 100px;
+  display: inline;
 }

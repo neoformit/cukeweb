@@ -20,14 +20,13 @@ function sendEmail(address) {
     }
 
     $('div.email .spinner').fadeIn(250);
-    const match_id = getParameterByName('id');
 
     $.ajax({
         url : "/match/sendmail/",   // the endpoint
         type : "POST",              // http method
         data : {
             'address': address,
-            'match_id': match_id,
+            'result_id': result_id,
         },
 
         // handle a successful response

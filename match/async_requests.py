@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django.core.mail import send_mail
 from django.http import JsonResponse, HttpResponseBadRequest
 
+from .models import MatchRecord, Match
 from register.models import Tank, Cucumber
 
 
@@ -23,9 +24,24 @@ def email_result_link(request):
     if request.method != "POST":
         return HttpResponseBadRequest
     address = request.POST['address']
-    match_url = (settings.BASE_URL
-                 + 'match/result/?id=%s' % request.POST['match_id'])
+    result_url = (settings.BASE_URL
+                  + 'match/result/?id=%s' % request.POST['result_id'])
     subject = "Match result from The Cuke Register"
-    body = 'View your recent image match result here:\n' + match_url
+    body = 'View your recent image match result here:\n' + result_url
     send_mail(subject, body, settings.DEFAULT_EMAIL, [address])
     return HttpResponse(status=200)
+
+
+def reject_match(request):
+    """Fetch the next-best match from the specified Match instance."""
+    if request.method != "POST":
+        return HttpResponseBadRequest
+    result = MatchRecord.objects.get(identifier=request.POST['result_id'])
+    match = Match.objects.get(
+        record=result, identifier=request.POST['match_id'])
+    try:
+        if request.POST['undo'] == 'true':
+            return JsonResponse(match.fetch_previous_match())
+        return JsonResponse(match.fetch_next_match())
+    except IndexError:
+        return JsonResponse({'error': 'No more matches to fetch'})
