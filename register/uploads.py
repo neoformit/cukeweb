@@ -14,7 +14,7 @@ from utilities.temps import purge_temps
 from cukeweb.exceptions import DuplicateCukeError
 
 import logging
-logger = logging.getLogger('main')
+logger = logging.getLogger('django')
 
 alphanumeric = string.ascii_letters + string.digits
 

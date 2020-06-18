@@ -4,7 +4,7 @@ import cukecv
 from operator import itemgetter
 
 import logging
-logger = logging.getLogger('main')
+logger = logging.getLogger('django')
 
 
 def make(query, subjects):

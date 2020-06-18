@@ -16,10 +16,6 @@ ALLOWED_HOSTS += [
     'cukes.neoformit.com',
 ]
 
-MIDDLEWARE += [
-    # whitenoise
-]
-
 
 WSGI_APPLICATION = 'cukeweb.wsgi.application'
 

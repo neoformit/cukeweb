@@ -25,7 +25,7 @@ from register.models import Tank, Cucumber
 from utilities.generators import generate_id
 
 import logging
-logger = logging.getLogger('main')
+logger = logging.getLogger('django')
 
 
 def generate_matchset_id():

@@ -6,7 +6,7 @@ from django.conf import settings
 from django.template.loader import render_to_string
 
 import logging
-logger = logging.getLogger('main')
+logger = logging.getLogger('django')
 
 
 def render(request):

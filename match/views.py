@@ -11,7 +11,7 @@ from .models import MatchRecord
 from register.models import Tank
 
 import logging
-logger = logging.getLogger('main')
+logger = logging.getLogger('django')
 
 
 def query(request):

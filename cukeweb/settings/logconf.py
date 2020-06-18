@@ -43,7 +43,8 @@ LOGGING = {
         },
     },
     'loggers': {
-        'main': {
+        'django': {
+            # Add 'mail_admins' when production-ready
             'handlers': ['debug_file', 'error_file', 'console'],
             'level': 'DEBUG',
             'propagate': True,
