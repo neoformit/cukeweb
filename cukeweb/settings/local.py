@@ -7,7 +7,7 @@ from .base import *
 
 
 DEBUG = True
-ENV = yaml.load(os.environ['ENV_PATH'], Loader=yaml.FullLoader)
+ENV = yaml.load(os.environ['DJANGO_ENV_PATH'], Loader=yaml.FullLoader)
 SECRET_KEY = ENV['SECRET_KEY']
 WSGI_APPLICATION = 'cukeweb.wsgi.application'
 

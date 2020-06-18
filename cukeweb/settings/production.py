@@ -6,13 +6,14 @@ import psycopg2
 from .base import *
 
 
-ENV = yaml.load(os.environ['ENV_PATH'], Loader=yaml.FullLoader)
+ENV = yaml.load(os.environ['DJANGO_ENV_PATH'], Loader=yaml.FullLoader)
 
 DEBUG = False
 SECRET_KEY = ENV['SECRET_KEY']
 
 ALLOWED_HOSTS += [
     '203.101.227.248',
+    'cukes.neoformit.com',
 ]
 
 MIDDLEWARE += [
