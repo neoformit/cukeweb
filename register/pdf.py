@@ -29,11 +29,15 @@ def render(request):
     page_height = round(sections * 2.2)
     logger.info("Printing to pdf with page height %scm" % page_height)
 
+    config = pdfkit.configuration(
+        wkhtmltopdf=bytes('/usr/bin/wkhtmltopdf', 'utf-8')
+    )
     pdfkit.from_string(
         render_to_string('register/report.html', data),
         report_path,
         options={
             'page-height': '100cm',
-        }
+        },
+        configuration=config
     )
     return report_uri
