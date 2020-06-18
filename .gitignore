@@ -2,7 +2,9 @@
 __pycache__/
 *.py[cod]
 *$py.class
-cukeweb/media/
+cukeweb/media/*.jpg
+cukeweb/media/*.jpeg
+cukeweb/media/temp/reports/*.pdf
 cukeweb/staticfiles/*
 cukeweb/*/migrations/*.py
 

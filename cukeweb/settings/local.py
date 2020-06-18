@@ -7,7 +7,7 @@ from .base import *
 
 
 DEBUG = True
-ENV = yaml.load(os.environ['DJANGO_ENV_PATH'], Loader=yaml.FullLoader)
+ENV = yaml.load(open(os.environ['DJANGO_ENV_PATH']), Loader=yaml.FullLoader)
 SECRET_KEY = ENV['SECRET_KEY']
 WSGI_APPLICATION = 'cukeweb.wsgi.application'
 
@@ -28,4 +28,5 @@ DATABASES = {
 
 
 BASE_URL = 'http://127.0.0.1:8000/'
-SERVER_EMAIL = 'admin@cukeregister.com'
+SERVER_EMAIL = 'admin@cukeweb.com'
+STATIC_ROOT = os.path.join(BASE_DIR, 'cukeweb', 'staticfiles')

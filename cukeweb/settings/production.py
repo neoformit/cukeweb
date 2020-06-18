@@ -6,7 +6,7 @@ import psycopg2
 from .base import *
 
 
-ENV = yaml.load(os.environ['DJANGO_ENV_PATH'], Loader=yaml.FullLoader)
+ENV = yaml.load(open(os.environ['DJANGO_ENV_PATH']), Loader=yaml.FullLoader)
 
 DEBUG = False
 SECRET_KEY = ENV['SECRET_KEY']
@@ -39,15 +39,15 @@ DATABASES = {
 #     ("Cameron", "chyde1@usc.edu.au"),
 #     ("Cameron", "porkmymonkey@gmail.com"),
 # ]
-SERVER_EMAIL = 'admin@thecukeregister.com'
+SERVER_EMAIL = 'admin@cukes.neoformit.com'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = 25
 EMAIL_HOST_USER = 'admin'
 EMAIL_HOST_PASSWORD = ''
 EMAIL_USE_TLS = False
-DEFAULT_FROM_EMAIL = 'The Cuke Register <admin@crustybase.org>'
+DEFAULT_FROM_EMAIL = 'The Cuke Register <admin@cukes.neoformit.com>'
 
 
-BASE_URL = 'hmmm...'
+BASE_URL = 'cukes.neoformit.com'
 STATIC_ROOT = os.path.join(BASE_DIR, 'cukeweb', 'staticfiles')
