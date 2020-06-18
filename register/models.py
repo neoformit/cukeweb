@@ -18,7 +18,7 @@ from .filename import image_upload_path
 from cukeweb.exceptions import DuplicateCukeError
 
 import logging
-logger = logging.getLogger('main')
+logger = logging.getLogger('django')
 
 
 class Tank(models.Model):

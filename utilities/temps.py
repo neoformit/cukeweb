@@ -4,7 +4,7 @@ import os
 from django.conf import settings
 
 import logging
-logger = logging.getLogger('main')
+logger = logging.getLogger('django')
 
 
 def purge_temps(*dirs):
