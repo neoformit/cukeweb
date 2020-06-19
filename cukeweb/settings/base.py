@@ -6,7 +6,7 @@ from .logconf import LOGGING
 
 DEBUG = False
 LOGGING['loggers']['django']['level'] = 'INFO'
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 print("BASE_DIR: %s" % BASE_DIR)
 
 ALLOWED_HOSTS = [

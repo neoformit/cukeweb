@@ -1,0 +1,176 @@
+/* Register page */
+form {
+  width: 50vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+form .tanks {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+form .tanks > * {
+  margin: 50px 30px;
+}
+form .input-box input {
+  width: 320px;
+}
+form .dropdown select {
+  color: inherit;
+  width: 350px;
+  padding: 15px;
+  margin: 20px 0;
+  font-size: 1.5rem;
+  background-color: var(--button-main);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+form .dropdown option {
+  color: black;
+}
+form p {
+  font-size: 1.5rem;
+  font-weight: normal;
+  margin-top: 0;
+  margin-bottom: 35px;
+}
+form p.error-msg {
+  height: 23.5px;
+}
+form .input-box,
+form .dropdown {
+  position: relative;
+}
+form div.valid input,
+form div.valid select {
+  box-shadow: 0 0 10px 2px lawngreen;
+}
+form div.valid::after {
+  content: "";
+  display: block;
+  position: absolute;
+  right: 15px;
+  top: 42px;
+  width: 20px;
+  height: 6px;
+  border: 3px solid lawngreen;
+  border-top: none;
+  border-right: none;
+  transform: rotate(-60deg);
+}
+form div.identifiers {
+  margin: 0 50px 50px 50px;
+  align-items: center;
+  justify-content: center;
+}
+form div.radio-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  position: relative;
+}
+form div.identifiers input[type="checkbox"] {
+  width: 0;
+  height: 0;
+  padding: 0;
+  margin: 0;
+}
+form div.identifiers label {
+  color: black;
+  margin: 0;
+  padding: 10px;
+  font-size: 1.25rem;
+  background-color: rgba(200,200,200,0.5);
+  cursor: pointer;
+  transition-duration: 0.25s;
+}
+form div.identifiers label:hover {
+  background-color: rgba(200,200,200,1);
+}
+form div.identifiers input:checked+label {
+  color: white;
+  background-color: var(--dodger);
+}
+form div.identifiers #no_infer_id.selected {
+  color: white;
+  background-color: var(--dodger);
+}
+form div.identifiers label:first-of-type {
+  border-radius: 10px 0 0 10px;
+}
+form div.identifiers label:last-of-type {
+  border-radius: 0 10px 10px 0;
+}
+form div.identifiers > input {
+  visibility: hidden;
+  height: 0;
+  padding: 0;
+  margin-top: 10px;
+  transition-duration: 0.25s;
+}
+form div.identifiers > input.active {
+  visibility: visible;
+  height: auto;
+  padding: 15px;
+}
+form div.radio-group.tooltip::after {
+  top: -5px;
+  right: -245px;
+  width: 200px;
+  content: "Take cucumber IDs from filenames. If 'No' IDs will be auto-generated";
+}
+form div.radio-group.tooltip::before {
+  top: 2px;
+  right: -70px;
+  width: 40px;
+  height: 40px;
+}
+
+/* Confirmation page */
+div.confirm {
+  text-align: center;
+}
+div.confirm > img {
+  width: 300px;
+  opacity: 0.8;
+  margin-left: 40px;
+}
+img.success {
+  opacity: 0.8;
+  width: 300px;
+  height: auto;
+  margin: 0 auto;
+}
+div.invalid .row {
+  margin: 25px;
+  padding: 50px;
+  background-color: rgba(200,200,200,0.05)
+  border: 2px solid rgba(200,200,200,0.2);
+  border-radius: 15px;
+}
+div.invalid .col {
+  text-align: left;
+  padding: 25px;
+  justify-content: center;
+}
+div.invalid .col.text {
+  max-width: 400px;
+}
+div.invalid button.warn.tooltip::after {
+  content: "Notify developer if this is a bug";
+}
+div.invalid img {
+  height: 200px;
+  width: auto;
+  padding: 10px;
+  border: 1px solid #555;
+  border-radius: 10px;
+}

@@ -1,5 +1,6 @@
 bind = "127.0.0.1"
 workers = 2
+timeout = 1000
 
 # Environment variables
 raw_env = [
