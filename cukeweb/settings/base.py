@@ -6,6 +6,7 @@ from .logconf import LOGGING
 
 DEBUG = False
 LOGGING['loggers']['django']['level'] = 'INFO'
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 print("BASE_DIR: %s" % BASE_DIR)
 
@@ -80,3 +81,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'cukeweb', 'media')
+
+# File permissions (static/media)
+FILE_UPLOAD_PERMISSIONS = 0o644
+FILE_UPLOAD_DIRECTORY_PERMISSIONS = 0o644

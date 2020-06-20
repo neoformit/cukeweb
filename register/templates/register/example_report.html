@@ -1,8 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <title> Registration report {% now "SHORT_DATETIME_FORMAT" %} </title>
+<html lang="en"><head>
+  <title> Registration report 06/20/2020 4:21 p.m. </title>
 
   <style>
 
@@ -97,8 +94,8 @@
 
 <body>
 
-  <h1 class="title"> Sea Cucumber Registration Report <br><br> {% now "SHORT_DATETIME_FORMAT" %} (AEST) </h1>
-  <h2 class="title"> {{ registered|length }} animal(s) registered to tank: <br><br> <span class="big">{{ tank_id }}</span> </h2>
+  <h1 class="title"> Sea Cucumber Registration Report <br><br> 06/20/2020 4:21 p.m. (AEST) </h1>
+  <h2 class="title"> 4 animal(s) registered to tank: <br><br> <span class="big">plerp</span> </h2>
 
   <div class="content summary">
     <h2 class="heading"> Summary </h2>
@@ -106,26 +103,21 @@
 
     <h3> Registered animals: </h3>
 
-    {% if not registered|length %}
-    <h3>None</h3>
-    <br>
-    {% endif %}
+    
 
     <p>
-      {% for r in registered %}
-      {{ r.filename }} <br>
-      {% endfor %}
+      
+      maggie_2_iQgln7N.jpg <br>
+      
+      nathan_2_JQUzzdD.jpg <br>
+      
+      ollie_2_zUHxQI9.jpg <br>
+      
+      sid_2_q2qneyD.jpg <br>
+      
     </p>
 
-    {% if failed %}
-    <h3> Failed registrations: </h3>
-
-    <p>
-      {% for f in failed %}
-      {{ f.filename }} <br>
-      {% endfor %}
-    </p>
-    {% endif %}
+    
   </div>
 
   <div class="content">
@@ -134,66 +126,89 @@
 
     <h3> Registered animals: </h3>
 
-    {% if not registered|length %}
-
-    <h3>None</h3>
-    <br>
-
-    {% else %}
+    
 
     <div class="success">
-      {% for r in registered %}
-      <div class="row" {% if r.break %}style="page-break-before: always;"{% endif %}>
+      
+      <div class="row">
         <div class="col">
-          <img src="{{ r.img_path }}">
+          <img src="/srv/sites/cukeweb/cukeweb/media/registration/plerp/maggie_2_iQgln7N.jpg">
         </div>
 
         <div class="col table">
           <table>
-            <tr>
-              <td> Identifier </td> <td> {{ r.id }} </td>
+            <tbody><tr>
+              <td> Identifier </td> <td> maggie_2 </td>
             </tr>
             <tr>
-              <td> Filename </td> <td> {{ r.filename }} </td>
+              <td> Filename </td> <td> maggie_2_iQgln7N.jpg </td>
             </tr>
-          </table>
+          </tbody></table>
         </div>
       </div>
-      {% endfor %}
-    </div>
-
-    {% endif %}
-
-    {% if failed %}
-    <br><br>
-
-    <h3> Failed registrations: </h3>
-
-    <div class="error">
-      {% for f in failed %}
-      <div class="row" {% if f.break %}style="page-break-before: always;"{% endif %}>
+      
+      <div class="row">
         <div class="col">
-          <img src="{{ f.img_path }}">
+          <img src="/srv/sites/cukeweb/cukeweb/media/registration/plerp/nathan_2_JQUzzdD.jpg">
         </div>
 
-        <div class="col">
+        <div class="col table">
           <table>
-            <tr>
-              <td> Filename </td> <td> {{ f.filename }} </td>
+            <tbody><tr>
+              <td> Identifier </td> <td> nathan_2 </td>
             </tr>
             <tr>
-              <td> Error </td> <td> {{ f.message }} </td>
+              <td> Filename </td> <td> nathan_2_JQUzzdD.jpg </td>
             </tr>
-          </table>
+          </tbody></table>
         </div>
       </div>
-      {% endfor %}
+      
+      <div class="row">
+        <div class="col">
+          <img src="/srv/sites/cukeweb/cukeweb/media/registration/plerp/ollie_2_zUHxQI9.jpg">
+        </div>
+
+        <div class="col table">
+          <table>
+            <tbody><tr>
+              <td> Identifier </td> <td> ollie_2 </td>
+            </tr>
+            <tr>
+              <td> Filename </td> <td> ollie_2_zUHxQI9.jpg </td>
+            </tr>
+          </tbody></table>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col">
+          <img src="/srv/sites/cukeweb/cukeweb/media/registration/plerp/sid_2_q2qneyD.jpg">
+        </div>
+
+        <div class="col table">
+          <table>
+            <tbody><tr>
+              <td> Identifier </td> <td> sid_2 </td>
+            </tr>
+            <tr>
+              <td> Filename </td> <td> sid_2_q2qneyD.jpg </td>
+            </tr>
+          </tbody></table>
+        </div>
+      </div>
+      
     </div>
-    {% endif %}
+
+    
+
+    
 
   </div>
 
-</body>
 
 
-</html>
+
+
+<div id="viewPortSize" class="bottom_right" style="display: none; background-color: rgb(0, 0, 0); color: rgb(255, 255, 255); font-size: 12px;"></div></body></html>
+

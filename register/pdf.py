@@ -36,8 +36,9 @@ def render(request):
         render_to_string('register/report.html', data),
         report_path,
         options={
-            'page-height': '100cm',
+            'disable-local-file-access': None,
+            'allow': '/srv/sites/cukeweb/cukeweb/media/',
         },
-        configuration=config
+        configuration=config,
     )
     return report_uri
