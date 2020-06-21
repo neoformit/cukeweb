@@ -17,7 +17,7 @@
   <h1>Register new animals</h1>
 </div>
 
-<form class="register-form-group" enctype="multipart/form-data" action="/register/" onsubmit="return formSubmit();" method="post">
+<form class="register-form-group" enctype="multipart/form-data" action="/register/" onsubmit="return formSubmit();" method="post" autocomplete="off">
 
   {% csrf_token %}
 
