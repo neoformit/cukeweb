@@ -7,8 +7,15 @@ from .logconf import LOGGING
 DEBUG = False
 LOGGING['loggers']['django']['level'] = 'INFO'
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+BASE_DIR = os.path.dirname(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 print("BASE_DIR: %s" % BASE_DIR)
+
+LOGIN_URL = '/login'
+LOGIN_REQUIRED_IGNORE_PATHS = [
+    r'^/$',
+    r'^/admin/$',
+]
 
 ALLOWED_HOSTS = [
     'localhost',
@@ -34,6 +41,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'login_required.middleware.LoginRequiredMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',

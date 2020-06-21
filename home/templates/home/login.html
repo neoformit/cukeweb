@@ -1,0 +1,38 @@
+{% extends "home/header.html" %}
+{% load static %}
+
+
+{% block content %}
+
+<div class="header">
+  <h2>Welcome to...</h2>
+  <h1>The cuke register</h1>
+</div>
+
+<div class="container">
+  <h2> Please log in to continue </h2>
+
+  <form action="/" method="post" autocomplete="off">
+    {% csrf_token %}
+    <div class="col align-items-center">
+      <input type="text" name="username" value="" placeholder="Username">
+      <input type="password" name="password" value="" placeholder="Password">
+      {{ form.password.errors }}
+      <button type="submit"> Submit </button>
+    </div>
+  </form>
+</div>
+
+{% endblock %}
+
+
+{% block javascript %}
+<script type="text/javascript">
+  $('form').on('keypress', 'input', function(args) {
+      if (args.keyCode == 13) {
+          $('form button').click();
+          return false;
+      }
+  });
+</script>
+{% endblock %}

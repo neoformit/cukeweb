@@ -127,6 +127,13 @@ div.sidebar a.share::after {
   width: 80px;
   content: "Email link";
 }
+div.sidebar a.logout {
+  padding-left: 10px;
+}
+div.sidebar a.logout::after {
+  left: 6px;
+  content: "Logout";
+}
 div.sidebar a img {
   display: inline;
   width: inherit;
@@ -141,6 +148,12 @@ div.row {
 div.col {
   display: flex;
   flex-direction: column;
+}
+.align-items-center {
+  align-items: center;
+}
+.justify-content-center {
+  justify-content: center;
 }
 div.header {
   position: relative;
