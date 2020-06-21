@@ -90,6 +90,6 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'cukeweb', 'media')
 
-# File permissions (static/media)
-FILE_UPLOAD_PERMISSIONS = 0o644
-FILE_UPLOAD_DIRECTORY_PERMISSIONS = 0o644
+# File permissions (static/media) (breaks collectstatic!?)
+# FILE_UPLOAD_PERMISSIONS = 0o644
+# FILE_UPLOAD_DIRECTORY_PERMISSIONS = 0o644
