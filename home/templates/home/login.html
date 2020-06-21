@@ -17,7 +17,9 @@
     <div class="col align-items-center">
       <input type="text" name="username" value="" placeholder="Username">
       <input type="password" name="password" value="" placeholder="Password">
-      {{ form.password.errors }}
+      <p class="login-error">
+        {{ form.password.errors.as_text|slice:"1:" }}
+      </p>
       <button type="submit"> Submit </button>
     </div>
   </form>

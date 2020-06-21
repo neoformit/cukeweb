@@ -354,3 +354,9 @@ div.home-button-group a.button:hover {
 a.button p {
   font-size: 1.25rem;
 }
+
+/* Login page */
+p.login-error {
+  color: gold;
+  font-size: 1.5rem;
+}

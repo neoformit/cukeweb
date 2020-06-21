@@ -1,7 +1,5 @@
 """Return a static homepage as the site index."""
 
-import pprint
-
 from django.contrib import auth
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
@@ -27,7 +25,6 @@ def login(request):
     """Display and process user login."""
     if request.method == "POST":
         form = LoginForm(request.POST, request=request)
-        print(pprint.pformat(form))
         if form.is_valid():
             form.login()
             return redirect('/')
