@@ -15,7 +15,7 @@ from django.core.files import File
 from django.contrib.postgres.fields import JSONField
 
 from .filename import image_upload_path
-from cukeweb.exceptions import DuplicateCukeError
+from cukeweb.exceptions import DuplicateCukeError, OrientationError
 
 import logging
 logger = logging.getLogger('django')
@@ -62,6 +62,12 @@ class Cucumber(models.Model):
                 tank=tank,
                 source_image=File(file),    # from TemporaryUploadedFile
             )
+            if c.source_image.width < c.source_image.height:
+                raise OrientationError(
+                    'Cannot register portrait images.'
+                    ' Please ensure that images are oriented in landscape,'
+                    ' with the anus to the left'
+                )
             cuke = cukecv.Cuke(c.source_image.path)
             c.features = cuke.to_dict()
             c.save()
