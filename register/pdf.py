@@ -38,6 +38,7 @@ def render(request):
         options={
             'disable-local-file-access': None,
             'allow': '/srv/sites/cukeweb/cukeweb/media/',
+            'page-height': 100,
         },
         configuration=config,
     )
