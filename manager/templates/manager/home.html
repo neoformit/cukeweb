@@ -1,0 +1,73 @@
+{% extends "home/header.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'manager/css/manage.css' %}">
+{% endblock %}
+
+{% block sidebar %}
+  <a class="home" href="/"> <img src="{% static 'icons/home.svg' %}" alt="Homepage"> </a>
+  <a class="info" href="/info" target="_blank"> <img src="{% static 'icons/info.svg' %}" alt="Information"> </a>
+{% endblock %}
+
+{% block content %}
+
+<div class="header">
+  <h2>The cucumber registry</h2>
+  <h1>Registry management</h1>
+</div>
+
+<br><br>
+
+<h1> Summary: </h1>
+
+<table>
+  <thead>
+    <th> Tank </th>
+    <th> Created </th>
+    <th> Occupants </th>
+  </thead>
+  {% for tank_id, tank in tanks.items %}
+  <tr>
+    <td> {{ tank_id }} </td>
+    <td> {{ tank.date_created }} </td>
+    <td> {{ tank.cucumbers|length }} animals </td>
+  </tr>
+  {% endfor %}
+</table>
+
+<div class="content">
+  {% for tank_id, tank in tanks.items %}
+
+    <div class="tank">
+      <h2 class="text-center">
+        Tank "{{ tank_id }}" <br>
+        Created {{ tank.date_created }} <br>
+        {{ tank.cucumbers|length }} registered animals
+      </h2>
+
+      <div class="row">
+        {% for c in tank.cucumbers %}
+        <div class="cucumber" id="cuke_{{ c.id }}">
+          <img src="{{ c.img_uri }}" alt="Cucumber source image">
+
+          <p> {{ c.id }} </p>
+          <p> Registered {{ c.date_created }} </p>
+          {% for name, detail in c.details %}
+          <p> {{ name }}: {{ detail }} {{ c.date_created }} </p>
+          {% endfor %}
+
+          <div class="buttons">
+            <div onclick="editCuke({{ tank_id }}, {{ c.id }});" title="Edit"> &#9998; </div>
+            <div onclick="deleteCuke({{ tank_id }}, {{ c.id }});" title="Delete"> &times; </div>
+          </div>
+        </div>
+        {% endfor %}
+
+      </div>
+    </div>
+
+  {% endfor %}
+</div>
+
+{% endblock %}

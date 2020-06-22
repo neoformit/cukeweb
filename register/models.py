@@ -27,6 +27,26 @@ class Tank(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     identifier = models.CharField(max_length=25, unique=True)
 
+    @classmethod
+    def render_status(cls):
+        """Render dictionary describing status of tanks."""
+        tanks = cls.objects.all()
+        data = {}
+        for t in tanks:
+            cucumbers = []
+            for c in t.cucumber_set.all().order_by('date_created'):
+                cucumbers.append({
+                    'id': c.identifier,
+                    'date_created': c.date_created.strftime('%d-%m-%Y'),
+                    'img_uri': c.source_image.url,
+                })
+
+            data[t.identifier] = {
+                'date_created': t.date_created.strftime('%d-%m-%Y'),
+                'cucumbers': cucumbers,
+            }
+        return data
+
 
 class Cucumber(models.Model):
     """A feature-extracted cucumber assigned to a tank."""
@@ -62,12 +82,12 @@ class Cucumber(models.Model):
                 tank=tank,
                 source_image=File(file),    # from TemporaryUploadedFile
             )
-            if c.source_image.width < c.source_image.height:
-                raise OrientationError(
-                    'Cannot register portrait images.'
-                    ' Please ensure that images are oriented in landscape,'
-                    ' with the anus to the left'
-                )
+            # if c.source_image.width < c.source_image.height:
+            #     raise OrientationError(
+            #         'Cannot register portrait images.'
+            #         ' Please ensure that images are oriented in landscape,'
+            #         ' with the anus to the left'
+            #     )     # RAISING ERROR ON LANDSCAPE IMAGES (nathan_4, sid_4)
             cuke = cukecv.Cuke(c.source_image.path)
             c.features = cuke.to_dict()
             c.save()
