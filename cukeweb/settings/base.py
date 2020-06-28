@@ -9,7 +9,6 @@ LOGGING['loggers']['django']['level'] = 'INFO'
 
 BASE_DIR = os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-print("BASE_DIR: %s" % BASE_DIR)
 
 LOGIN_URL = '/login'
 LOGIN_REQUIRED_IGNORE_PATHS = [

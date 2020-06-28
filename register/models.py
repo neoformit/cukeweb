@@ -39,6 +39,7 @@ class Tank(models.Model):
                     'id': c.identifier,
                     'date_created': c.date_created.strftime('%d-%m-%Y'),
                     'img_uri': c.source_image.url,
+                    'details': c.details,
                 })
 
             data[t.identifier] = {
@@ -56,6 +57,7 @@ class Cucumber(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     source_image = models.ImageField(upload_to=image_upload_path)
     features = JSONField(null=True)    # Serialized cukecv.Cuke instance
+    details = JSONField(default=dict)     # Optional addition by user
 
     @classmethod
     def register(cls, file, tank, infer_id=True, prefix_id=""):
