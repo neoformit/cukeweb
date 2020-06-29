@@ -142,6 +142,9 @@ div.sidebar a img {
 }
 
 /* Generic */
+a, a:visited {
+  color: teal;
+}
 div.row {
   display: flex;
   flex-direction: row;

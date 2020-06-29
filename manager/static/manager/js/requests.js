@@ -9,8 +9,12 @@ function deleteTankRequest(tank_id) {
         },
         // handle a successful response
         success : function() {
-            $(`#${ tank_id }`).remove();
+            $(`#tank_${ tank_id }`).remove();
+            $(`#row_${ tank_id }`).remove();
             closeModal();
+            if (!$('div.tank').length) {
+                location.reload();
+            }
         },
         error: function(xhr, status, msg) {
             newTabErrorMessage(xhr);
@@ -30,7 +34,9 @@ function deleteCukeRequest(tank_id, cuke_id) {
         },
         // handle a successful response
         success : function() {
-            $(`#${ tank_id } #${ cuke_id }`).remove();
+            $(`#tank_${ tank_id } #cuke_${ cuke_id }`).remove();
+            let count = parseInt($(`#row_${ tank_id } span.count`).text());
+            $(`#row_${ tank_id } span.count`).text(count - 1);
             closeModal();
         },
         error: function(xhr, status, msg) {
@@ -41,25 +47,41 @@ function deleteCukeRequest(tank_id, cuke_id) {
 
 
 function updateCukeRequest() {
+    if (!validateCukeUpdate()) { return }
+
     // Retrieve values from modal form
     const tank_id = $('.modal.edit span.tank_id').text();
     const cuke_id = $('.modal.edit span.cuke_id').text();
     const detailDivs = $('form div.detail');
     let details = {};
+    let oldKey; let oldVal; let key; let value;
+
     // Collect only detail fields which have been updated
     detailDivs.each( function(i, item) {
-        let key = $(item).children('input')[0].value;
-        let oldKey = $(item).children('input')[0].placeholder;
-        let value = $(item).children('input')[1].value;
-        let oldVal = $(item).children('input')[1].placeholder;
-        if (key === oldKey & value === oldVal) { return }
+        if (!item.innerHTML) {
+            // Field was deleted
+            oldKey = item.id;
+            details[oldKey] = null;
+            console.log(`updateCukeRequest: Field ${ oldKey } was deleted`);
+            return
+        }
+        oldKey = $(item).children('input')[0].placeholder;
+        oldVal = $(item).children('input')[1].placeholder;
+        key = $(item).children('input')[0].value;
+        value = $(item).children('input')[1].value;
+        if (key === oldKey & value === oldVal) {
+            // Field was not altered
+            return
+        }
         details[oldKey] = {'key': key, 'value': value}
+        console.log(`updateCukeRequest: Field ${ oldKey } was collected for update request`);
     });
 
-    let key = $('form input[name="new_key"]')[0].value;
-    let value = $('form input[name="new_value"]')[0].value;
+    key = $('form input[name="new_key"]')[0].value;
+    value = $('form input[name="new_value"]')[0].value;
     if (key && value) {
         details[key] = {'key': key, 'value': value};
+        console.log(`updateCukeRequest: Field ${ key } was created`);
     }
 
     if (!Object.keys(details).length) {

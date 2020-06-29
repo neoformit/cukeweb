@@ -9,6 +9,9 @@ def delete_tank(request):
     """Delete tank instance defined in request."""
     if not request.method == "POST":
         return HttpResponseBadRequest
+
+    print("\nPOST data:", request.POST, end='\n\n')
+
     Tank.objects.get(identifier=request.POST['tank_id']).delete()
     return HttpResponse(status=200)
 
@@ -17,6 +20,9 @@ def delete_cuke(request):
     """Delete cucumber instance defined in request."""
     if not request.method == "POST":
         return HttpResponseBadRequest
+
+    print("\nPOST data:", request.POST, end='\n\n')
+
     tank = Tank.objects.get(identifier=request.POST['tank_id'])
     Cucumber.objects.get(
         tank=tank,
@@ -34,11 +40,17 @@ def update_cuke(request):
     updated = {}
 
     for k, v in json.loads(request.POST['details']).items():
+        if v is None:
+            # Field was deleted
+            cuke.details.pop(k)
+            updated[k] = None
+            continue
         if k != v['key']:
             # Key was updated
             cuke.details.pop(k)
         # Update field with new value
         updated[k] = [v['key'].capitalize(), v['value']]
         cuke.details[v['key'].capitalize()] = v['value']
+
     cuke.save()
     return JsonResponse(updated)
