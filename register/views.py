@@ -1,11 +1,18 @@
 """Views for registering new cucumbers and creating new tanks."""
 
+import os
+import pickle as pk
+
+from django.conf import settings
 from django.shortcuts import render, redirect
 from django.core.exceptions import ObjectDoesNotExist
 
 from . import uploads, pdf
 from .models import Tank
 from .forms import RegistrationForm
+
+import logging
+logger = logging.getLogger('django')
 
 
 def register(request):
@@ -23,9 +30,11 @@ def register(request):
         form = RegistrationForm(request.POST, request.FILES)
         if form.is_valid():
             tank = get_or_create_tank(form.cleaned_data['tank_id'])
-            print("\nReceived new registration form:")
-            print("infer_id: %s" % form.cleaned_data['infer_id'])
-            print("prefix_id: %s" % form.cleaned_data['id_prefix'])
+            logger.info(
+                "Received new registration form: "
+                + "infer_id: %s, " % form.cleaned_data['infer_id']
+                + "prefix_id: %s" % form.cleaned_data['id_prefix']
+            )
             report = uploads.register(
                 request.FILES,
                 tank,
@@ -49,8 +58,7 @@ def register(request):
 
 def report(request):
     """Generate a PDF report for user's most recent registration."""
-    # Uncomment to return html page for debugging/updating
+    # Uncomment to return html page for debugging/updating:
     # data = request.session['registration_data']
     # return render(request, 'register/report.html', data)
-    uri = pdf.render(request)
-    return redirect(uri)
+    return redirect(pdf.render(request))

@@ -9,9 +9,6 @@ def delete_tank(request):
     """Delete tank instance defined in request."""
     if not request.method == "POST":
         return HttpResponseBadRequest
-
-    print("\nPOST data:", request.POST, end='\n\n')
-
     Tank.objects.get(identifier=request.POST['tank_id']).delete()
     return HttpResponse(status=200)
 
@@ -20,9 +17,6 @@ def delete_cuke(request):
     """Delete cucumber instance defined in request."""
     if not request.method == "POST":
         return HttpResponseBadRequest
-
-    print("\nPOST data:", request.POST, end='\n\n')
-
     tank = Tank.objects.get(identifier=request.POST['tank_id'])
     Cucumber.objects.get(
         tank=tank,
