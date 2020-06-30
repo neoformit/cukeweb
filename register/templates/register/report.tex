@@ -1,0 +1,118 @@
+{% load texsafe %}
+
+\documentclass[12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{graphicx}
+\usepackage[a4paper, margin=1.5cm]{geometry}
+
+\usepackage{hyperref}					% For configuring hyperlinks
+
+% Set font face to sans serif
+\renewcommand{\familydefault}{\sfdefault}
+
+% Set no indent on paragraphs
+\setlength{\parindent}{0pt}
+
+% Colors
+\usepackage[dvipsnames]{xcolor}
+\definecolor{firebrick}{RGB}{120,0,0}
+
+% -----------------------------------------------------------------------------
+% Document
+\begin{document}
+
+% Heading
+\begin{center}
+	\textbf{ {\LARGE Cucumber registration report} } \\
+	\vspace{0.5cm}
+	{\large {% now "SHORT_DATETIME_FORMAT" %} (AEST)} \\
+	\hrulefill \\
+	\vspace{0.25cm}
+	{\Large {{ registered|length }} animal(s) registered to tank:}\\
+	\vspace{0.5cm}
+	{\Large "{{ tank_id|texsafe }}"}\\
+	\hrulefill \\
+\end{center}
+
+\vspace{1cm}
+
+% Summary
+{\Large \textbf{Summary}} \\
+\vspace{0.5cm}
+
+{\large Registered images:} \\
+
+{% if not registered|length %}
+None {% endif %}
+
+{% for r in registered %}
+{{ r.filename|texsafe }} \\ {% endfor %}
+
+
+{% if failed %}
+\vspace{0.5cm}
+\color{firebrick}
+{\large Failed registrations:} \\
+
+{% for f in failed %}
+{{ f.filename|texsafe }} \\ {% endfor %}
+{% endif %}
+\color{black}
+\hrulefill
+
+
+\vspace{1cm}
+
+% Details
+{\Large \textbf{Details}} \\
+
+\begin{center}
+	\begin{longtable}{ | m{3cm} | m{6cm} | m{6cm} | }
+		\caption{Successfully registered images} \\
+
+		Image & Identifier & Filename
+		\endhead
+
+		\hline
+		{% if not registered|length %}
+		None
+		\hline
+		{% endif %}
+
+		{% for r in registered %}
+		\raisebox{-\totalheight}{ {{ r.img_tex }} }
+		\vspace{2mm}
+		& {{ r.id|texsafe }}
+		& {{ r.filename|texsafe }} \\
+		\hline
+		{% endfor %}
+
+	\end{longtable}
+\end{center}
+
+
+{% if failed %}
+\begin{center}
+	\color{firebrick}
+	\begin{longtable}{ | m{3cm} | m{3cm} | m{9cm} | }
+		\caption{Failed images} \\
+
+		Image & Filename & Error
+		\endhead
+
+		\hline
+		{% for f in failed %}
+		\raisebox{-\totalheight}{ {{ f.img_tex }} }
+		\vspace{2mm}
+		& {{ f.filename|texsafe }}
+		& {{ f.message|texsafe }} \\
+		\hline
+		{% endfor %}
+
+	\end{longtable}
+\end{center}
+{% endif %}
+
+\end{document}

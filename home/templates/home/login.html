@@ -15,7 +15,7 @@
   <form action="/" method="post" autocomplete="off">
     {% csrf_token %}
     <div class="col align-items-center">
-      <input type="text" name="username" value="" placeholder="Username">
+      <input type="text" name="username" value="" placeholder="Username" autofocus>
       <input type="password" name="password" value="" placeholder="Password">
       <p class="login-error">
         {{ form.password.errors.as_text|slice:"1:" }}
