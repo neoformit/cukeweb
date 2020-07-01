@@ -90,7 +90,8 @@ div.sidebar a {
   text-decoration: none;
   transition-duration: 0.25s;
 }
-div.sidebar a:hover {
+div.sidebar a:hover,
+div.sidebar a:focus {
   box-shadow: 0 0 5px 1px #ccc;
 }
 div.sidebar a::after {
@@ -103,7 +104,8 @@ div.sidebar a::after {
   transition-duration: 0.25s;
   opacity: 0;
 }
-div.sidebar a:hover::after {
+div.sidebar a:hover::after,
+div.sidebar a:focus::after {
   opacity: 1;
 }
 div.sidebar a.home::after {
@@ -316,7 +318,9 @@ button.warn:hover {
   content: "";
 }
 .tooltip:hover::after,
-.tooltip:hover::before {
+.tooltip:hover::before,
+.tooltip.hovered::after,
+.tooltip.hovered::before {
   display: block;
 }
 #loading-animation {

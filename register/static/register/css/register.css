@@ -121,6 +121,18 @@ form div.identifiers > input.active {
   height: auto;
   padding: 15px;
 }
+
+/* Tooltips */
+div.sidebar span.tooltip::after {
+  top: -36px;
+  right: -180px;
+  width: 130px;
+  content: "Download a PDF for your records";
+}
+div.sidebar span.tooltip::before {
+  top: -18px;
+  right: -45px;
+}
 form div.radio-group.tooltip::after {
   top: -5px;
   right: -245px;

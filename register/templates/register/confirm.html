@@ -9,7 +9,11 @@
 <a class="home" href="/"> <img src="{% static 'icons/home.svg' %}" alt="Homepage"> </a>
 <a class="info" href="/info" target="_blank"> <img src="{% static 'icons/info.svg' %}" alt="Information"> </a>
 <a class="back" href="/register"> <img src="{% static 'icons/back.svg' %}" alt="Back"> </a>
-<a class="download" href="/register/report" target="_blank"> <img src="{% static 'icons/download.svg' %}" alt="Homepage"> </a>
+<a class="download" href="/register/report" target="_blank">
+  <span class="tooltip">
+    <img src="{% static 'icons/download.svg' %}" alt="Homepage">
+  </span>
+</a>
 {% endblock %}
 
 {% block content %}
@@ -63,4 +67,21 @@
 
 </div>
 
+{% endblock %}
+
+
+{% block javascript %}
+<script type="text/javascript">
+  $(document).ready(function() {
+    setTimeout(function() {
+      console.log('Settings focus on tooltip');
+      $('.sidebar span.tooltip').addClass('hovered');
+    }, 1000);
+    setTimeout(function() {
+      console.log('Removing focus from tooltip');
+      $('.sidebar span.tooltip').removeClass('hovered');
+      $('.sidebar span.tooltip').removeClass('tooltip');
+    }, 6000);
+  });
+</script>
 {% endblock %}

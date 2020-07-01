@@ -158,7 +158,7 @@ function formSubmit() {
     }
     // Add estimated time to loading overlay and fade in
     const n = $('input[type="file"]')[0].files.length;
-    const time = Math.round(n * 2.345);
+    const time = Math.round(n * 2.8);
     $('#loading-animation span.num').text(n);
     $('#loading-animation span.time').text(time);
     $('#loading-animation').fadeIn(500);
