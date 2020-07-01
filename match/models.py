@@ -16,6 +16,7 @@ import cukecv
 import traceback
 
 from django.db import models
+from django.conf import settings
 from django.core.files import File
 from django.contrib.postgres.fields import ArrayField, JSONField
 
@@ -90,7 +91,7 @@ class MatchRecord(models.Model):
                 exception__isnull=exc, is_target=False))
         )
 
-    def render(self):
+    def render(self, tex=False):
         """Return dict for rendering confirmation page."""
         matches = [{
             'id': m.identifier,
@@ -100,6 +101,7 @@ class MatchRecord(models.Model):
             'match_img_uri': m.best_match.source_image.url,
             'match_img_path': m.best_match.source_image.path,
             'identity': m.best_match.identifier,
+            'match_details': m.best_match.details,
             'date_registered': m.best_match.date_created,
             "score": round(m.score),
             "score_color": score_color(m.score),
@@ -113,12 +115,34 @@ class MatchRecord(models.Model):
             'exception': f.exception
         } for f in self.get_matches(failed=True)]
 
-        return {
+        data = {
             'tank_id': self.tank.identifier,
             'result_id': self.identifier,
             'matched': matches,
             'failed': failed,
         }
+
+        if tex:
+            result_url = (settings.BASE_URL
+                          + "match/result/?id=%s" % self.identifier)
+            data['tex_url'] = "\\href{%s}{%s}" % (result_url, result_url)
+
+            for m in matches:
+                m['query_img_tex'] = (
+                    "\\includegraphics[width=30mm, height=20mm]{%s}" %
+                    m['query_img_path']
+                )
+                m['match_img_tex'] = (
+                    "\\includegraphics[width=30mm, height=20mm]{%s}" %
+                    m['match_img_path']
+                )
+
+            for f in failed:
+                f['query_img_tex'] = (
+                    "\\includegraphics[width=30mm, height=20mm]{%s}" %
+                    f['query_img_path']
+                )
+        return data
 
 
 class Match(models.Model):
@@ -202,6 +226,8 @@ class Match(models.Model):
         """Update match attributes and return new render data."""
         if self.best_match.identifier in self.record.targets:
             self.is_target = True
+        else:
+            self.is_target = False
         self.save()
         str_date = self.best_match.date_created.strftime('%d %b %Y')
         data = {

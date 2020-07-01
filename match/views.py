@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseNotFound
 from django.core.exceptions import ObjectDoesNotExist
 
+from . import pdf
 from .forms import MatchForm
 from .models import MatchRecord
 from register.models import Tank
@@ -57,6 +58,12 @@ def result(request):
     except ObjectDoesNotExist:
         return HttpResponseNotFound()
     return render(request, 'match/result.html', matchset.render())
+
+
+def report(request):
+    """Render and return a PDF report for the current result."""
+    result_id = request.GET['result_id']
+    return redirect(pdf.render(request, result_id))
 
 
 def colors(request):

@@ -5,14 +5,16 @@ import subprocess
 from django.conf import settings
 from django.template.loader import render_to_string
 
+from .models import MatchRecord
+
 import logging
 logger = logging.getLogger('django')
 
 
-def render(request):
+def render(request, result_id):
     """Render to html template and convert to PDF."""
-    data = request.session['registration_data']
-    filename = 'report_%s.pdf' % data['identifier']
+    data = MatchRecord.objects.get(identifier=result_id).render(tex=True)
+    filename = 'report_%s.pdf' % data['result_id']
     tex_fname = filename.replace('.pdf', '.tex')
     tex_dir = os.path.join(
         settings.MEDIA_ROOT,
@@ -28,7 +30,7 @@ def render(request):
     )
 
     # Render tex file from report template
-    tex = render_to_string('register/report.tex', data)
+    tex = render_to_string('match/report.tex', data)
     with open(tex_path, 'w') as f:
         f.write(tex)
 

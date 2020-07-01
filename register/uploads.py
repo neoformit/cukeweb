@@ -35,11 +35,12 @@ class RegistrationReport:
         """Add a successfully registered cucumber instance."""
         self.registered.append({
             'id': cucumber.identifier,
-            'filename': os.path.basename(cucumber.source_image.name),
-            'img_path': os.path.join(
-                settings.MEDIA_ROOT,
-                cucumber.source_image.path
-            ),
+            'filename': cucumber.original_filename,
+            'img_tex': '\\includegraphics[width=30mm, height=20mm]{%s}' %
+                       os.path.join(
+                           settings.MEDIA_ROOT,
+                           cucumber.source_image.path
+                       ),
         })
 
     def fail(self, file, exc):
@@ -62,8 +63,9 @@ class RegistrationReport:
         self.failed.append({
             "filename": os.path.basename(file.name),
             "img_uri": temp_uri,
-            "img_path": temp_path,
             "message": exc_msg,
+            'img_tex': '\\includegraphics[width=30mm, height=20mm]{%s}' %
+                       temp_path,
         })
 
     def request_data(self):
@@ -103,7 +105,7 @@ class RegistrationReport:
 
 def register(FILES, tank, infer_id=True, prefix_id=""):
     """Register the images to the given tank."""
-    purge_temps('images', 'reports')
+    purge_temps('images', 'latex')
     report = RegistrationReport(tank.identifier)
 
     for f in FILES.getlist('images'):

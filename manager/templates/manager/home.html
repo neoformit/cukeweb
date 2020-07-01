@@ -19,6 +19,7 @@
 
 <br><br>
 
+{% if tanks|length %}
 <h1> Summary: </h1>
 
 <table>
@@ -28,23 +29,34 @@
     <th> Occupants </th>
   </thead>
   {% for tank_id, tank in tanks.items %}
-  <tr>
+  <tr id="row_{{ tank_id }}">
     <td> {{ tank_id }} </td>
     <td> {{ tank.date_created }} </td>
-    <td> {{ tank.cucumbers|length }} animals </td>
+    <td> <span class="count">{{ tank.cucumbers|length }}</span> animals </td>
   </tr>
   {% endfor %}
 </table>
+{% else %}
+<br><br>
+<h1 class="error-msg"> There are no registered tanks yet. </h1>
+<p class="big">
+  You can create new tanks and register cucumbers in the
+  <a href="/register">register</a>
+  interface.
+</p>
+{% endif %}
 
 <div class="content">
   {% for tank_id, tank in tanks.items %}
 
-    <div class="tank">
+    <div class="tank" id="tank_{{ tank_id }}">
       <h2 class="text-center">
         Tank "{{ tank_id }}" <br>
         Created {{ tank.date_created }} <br>
         {{ tank.cucumbers|length }} registered animals
       </h2>
+
+      <button class="danger" type="button" onclick="deleteTankDialog('{{ tank_id }}');"> Delete tank </button>
 
       <div class="row">
         {% for c in tank.cucumbers %}
@@ -52,14 +64,17 @@
           <img src="{{ c.img_uri }}" alt="Cucumber source image">
 
           <p> {{ c.id }} </p>
-          <p> Registered {{ c.date_created }} </p>
-          {% for name, detail in c.details %}
-          <p> {{ name }}: {{ detail }} {{ c.date_created }} </p>
-          {% endfor %}
+          <p> <span class="registered">Registered</span>: <span class="value">{{ c.date_created }}</span> </p>
+
+          <div class="details">
+            {% for name, detail in c.details.items %}
+            <p> <span class="key">{{ name }}</span>: <span class="value">{{ detail }}</span> </p>
+            {% endfor %}
+          </div>
 
           <div class="buttons">
-            <div onclick="editCuke({{ tank_id }}, {{ c.id }});" title="Edit"> &#9998; </div>
-            <div onclick="deleteCuke({{ tank_id }}, {{ c.id }});" title="Delete"> &times; </div>
+            <div onclick="editCukeDialog('{{ tank_id }}', '{{ c.id }}');" title="Edit"> &#9998; </div>
+            <div onclick="deleteCukeDialog('{{ tank_id }}', '{{ c.id }}');" title="Delete"> &times; </div>
           </div>
         </div>
         {% endfor %}
@@ -70,4 +85,74 @@
   {% endfor %}
 </div>
 
+<div class="modal-overlay" onclick="closeModal();"></div>
+
+
+<div class="modal delete" id="tankDeleteModal">
+  <div class="close" type="button" name="button" onclick="closeModal();"> &times; </div>
+  <h3> Delete tank "<span class='tank_id'> <!-- js filled --> </span>"? </h3>
+  <p> This tank will be deleted, along with all cucumbers registered to the tank. </p>
+  <p> This action cannot be undone. </p>
+
+  <button class="danger" type="submit"> Delete </button>
+  <button type="button" onclick="closeModal();"> Cancel </button>
+</div>
+
+
+<div class="modal delete" id="cukeDeleteModal">
+  <div class="close" type="button" name="button" onclick="closeModal();"> &times; </div>
+  <h3>
+    Delete "<span class='cuke_id'> <!-- js filled --> </span>"
+    from tank "<span class='tank_id'> <!-- js filled --> </span>"?
+  </h3>
+  <p> This animal will be removed from the tank. </p>
+  <p> This action cannot be undone. </p>
+
+  <button class="danger" type="submit"> Delete </button>
+  <button class="neutral" type="button" onclick="closeModal();"> Cancel </button>
+</div>
+
+
+<div class="modal edit" id="cukeEditModal">
+  <div class="close" type="button" name="button" onclick="closeModal();"> &times; </div>
+  <h3>
+    Edit details on "<span class='cuke_id'> <!-- js filled --> </span>"
+    in tank "<span class='tank_id'> <!-- js filled --> </span>"
+  </h3>
+
+  <form>
+    <!-- Async js submission -->
+    <div class="details">
+      <!-- Js filled from cuke div -->
+    </div>
+
+    <div class="add">
+      <label for=""> New field </label>
+      <br>
+      <input type="text" name="new_key" value="" placeholder="Field name" onclick="$(this).parent().children('input').removeClass('invalid');">
+      <input type="text" name="new_value" value="" placeholder="Field value" onclick="$(this).parent().children('input').removeClass('invalid');">
+    </div>
+
+    <p class="error-msg"></p>
+  </form>
+
+  <div class="buttons">
+    <button type="submit" onclick="updateCukeRequest();"> Update </button>
+    <button class="neutral" type="button" onclick="closeModal();"> Cancel </button>
+  </div>
+</div>
+
+{% endblock %}
+
+
+{% block javascript %}
+<script type="text/javascript">
+  // Hide modals so jquery remembers display css properties
+  $('.modal').hide();
+  $('.modal').css('opacity', '1');
+</script>
+
+<script src="{% static 'home/js/ajax.js' %}"></script>
+<script src="{% static 'manager/js/manage.js' %}"></script>
+<script src="{% static 'manager/js/requests.js' %}"></script>
 {% endblock %}

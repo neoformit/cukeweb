@@ -39,6 +39,7 @@ class Tank(models.Model):
                     'id': c.identifier,
                     'date_created': c.date_created.strftime('%d-%m-%Y'),
                     'img_uri': c.source_image.url,
+                    'details': c.details,
                 })
 
             data[t.identifier] = {
@@ -55,7 +56,9 @@ class Cucumber(models.Model):
     tank = models.ForeignKey(Tank, on_delete=models.CASCADE)
     date_created = models.DateTimeField(auto_now_add=True)
     source_image = models.ImageField(upload_to=image_upload_path)
+    original_filename = models.CharField(max_length=200, null=True)
     features = JSONField(null=True)    # Serialized cukecv.Cuke instance
+    details = JSONField(default=dict)     # Optional addition by user
 
     @classmethod
     def register(cls, file, tank, infer_id=True, prefix_id=""):
@@ -80,14 +83,18 @@ class Cucumber(models.Model):
             c = cls.objects.create(
                 identifier=cid,
                 tank=tank,
-                source_image=File(file),    # from TemporaryUploadedFile
+                source_image=File(file),      # file = TemporaryUploadedFile
+                original_filename=file.name,  # file = TemporaryUploadedFile
             )
+
+            # THIS SOMETIMES RAISES A FALSE-POSITIVE
             # if c.source_image.width < c.source_image.height:
             #     raise OrientationError(
             #         'Cannot register portrait images.'
             #         ' Please ensure that images are oriented in landscape,'
             #         ' with the anus to the left'
             #     )     # RAISING ERROR ON LANDSCAPE IMAGES (nathan_4, sid_4)
+
             cuke = cukecv.Cuke(c.source_image.path)
             c.features = cuke.to_dict()
             c.save()

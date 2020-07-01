@@ -5,7 +5,7 @@ __pycache__/
 cukeweb/media/*/*/*.jpg
 cukeweb/media/*/*.jpg
 cukeweb/media/*.jpeg
-cukeweb/media/temp/reports/*.pdf
+cukeweb/media/temp/latex/report*
 cukeweb/static/*
 */migrations/*.py
 

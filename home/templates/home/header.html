@@ -27,15 +27,15 @@
 
   <div class="interface">
     <div class="sidebar">
+      {% if user.is_staff %}
+      <a href="/admin" target="_blank"> <br> Admin </a>
+      {% endif %}
+
       {% block sidebar %}
       {% endblock %}
 
       {% if user.is_authenticated %}
       <a class="logout" href="/logout"> <img src="{% static 'icons/logout.svg' %}" alt="Log out"> </a>
-      {% endif %}
-
-      {% if user.is_staff %}
-      <a href="/admin" target="_blank"> <br> Admin </a>
       {% endif %}
     </div>
 
