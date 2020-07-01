@@ -11,10 +11,8 @@ async function blurTargetsInput(input) {
     await new Promise((resolve) => setTimeout(resolve, 100));
     if ($('div.targets input').is(":focus")) {
         // User clicked on dropdown
-        console.log('Blur target input: focus returned to input.')
         return
     }
-    console.log('Blur target input: focus NOT returned to input.')
     input.value = '';
     $('div.targets .dropdown').empty();
     $('div.targets .dropdown').css('opacity', '0');
@@ -65,7 +63,6 @@ function validFiles(n) {
 }
 
 function invalidFiles() {
-    console.log('Invalid files selected');
     $('input:file').val('');
     $('label.file-input').removeClass('valid');
     $('#fileCount').text('0 files selected')
@@ -77,10 +74,18 @@ function validateForm() {
         ($('.tanks .dropdown').hasClass('valid'))
         & $('input:file').val() != ''
     ) {
-        console.log('validateForm: form valididated')
         $('button:submit').removeAttr('disabled')
     } else {
-        console.log('validateForm: form not valid')
         $('button:submit').prop('disabled', 'true')
     }
+}
+
+function submitAnimate() {
+    const n_query = $('input[type="file"]')[0].files.length;
+    const n_subject = targetIds.length;
+    const time = Math.round(n_query * n_subject * 1.2354);
+    $('#loading-animation span.queries').text(n_query);
+    $('#loading-animation span.subjects').text(n_subject);
+    $('#loading-animation span.time').text(time);
+    $('#loading-animation').fadeIn(500);
 }

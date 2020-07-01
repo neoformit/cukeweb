@@ -79,12 +79,25 @@
   </div>
 </form>
 
+<div id="loading-animation">
+  <h1>
+    Registering <span class="num"></span> animals... <br><br>
+    Estimated time: <span class="time"></span> seconds
+  </h1>
+
+  <img src="{% static 'home/img/spinner.svg' %}" alt="Loading animation">
+</div>
+
 {% endblock %}
 
 
 {% block javascript %}
 
 <script type="text/javascript">
+  // Hide loading animation so jquery remembers display css properties
+  $('#loading-animation').hide();
+  $('#loading-animation').css('opacity', '1');
+
   const existingTanks = [
     {% for tank in tanks %}
     "{{ tank }}",

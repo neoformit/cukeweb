@@ -76,7 +76,15 @@ class MatchRecord(models.Model):
         """Create match instance and add to matches or failed."""
         for FILE in FILES.getlist('images'):
             Match.create(self, FILE, subjects)
-        # matchset.resolve_conflicts()  <-- to do
+        self.set_match_positions()
+        # self.resolve_conflicts()  <-- to do
+
+    def set_match_positions(self):
+        """Define Match positions based on alphabetical filenames."""
+        order = sorted(self.match_set.all(), key=lambda m: m.query_image.path)
+        for i, m in enumerate(order):
+            m.position = i + 1
+            m.save()
 
     def resolve_conflicts(self):
         """Resolve multiple queries matching the same subject."""
@@ -104,6 +112,7 @@ class MatchRecord(models.Model):
         """Return dict for rendering confirmation page."""
         matches = [{
             'id': m.identifier,
+            'position': m.position,
             'query_filename': os.path.basename(m.query_image.path),
             'query_img_uri': m.query_image.url,
             'query_img_path': m.query_image.path,
@@ -114,10 +123,11 @@ class MatchRecord(models.Model):
             'date_registered': m.best_match.date_created,
             "score": round(m.score),
             "score_color": score_color(m.score),
-            'is_target': m.is_target
+            'is_target': m.is_target,
         } for m in self.get_matches()]
 
         failed = [{
+            'position': f.position,
             'query_filename': os.path.basename(f.query_image.path),
             "query_img_uri": f.query_image.url,
             "query_img_path": f.query_image.path,
@@ -166,6 +176,7 @@ class Match(models.Model):
         unique=True, max_length=100, default=generate_result_id)
     query_image = models.ImageField(upload_to=image_upload_path)
     # Fields populated post-run
+    position = models.IntegerField(null=True)
     best_match = models.ForeignKey(
         Cucumber, on_delete=models.CASCADE, null=True)
     score = models.FloatField(null=True)

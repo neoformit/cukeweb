@@ -124,7 +124,6 @@ function validFiles(n) {
 }
 
 function invalidFiles() {
-    console.log('Invalid files selected');
     $('input:file').val('');
     $('label.file-input').removeClass('valid');
     $('#fileCount').text('0 files selected')
@@ -138,10 +137,8 @@ function validateForm() {
          || $('form.register-form-group .dropdown').hasClass('valid'))
         & $('input:file').val() != ''
     ) {
-        console.log('validateForm: form valididated')
         $('button:submit').removeAttr('disabled')
     } else {
-        console.log('validateForm: form not valid')
         $('button:submit').prop('disabled', 'true')
     }
 }
@@ -151,12 +148,19 @@ function formSubmit() {
     const existing_tank = $('#tank_id_select')[0].value;
 
     if (!new_tank) {
-        if (existing_tank !== '0') {
+        if (existingTanks.includes(existing_tank)) {
             $('#tank_id').val(existing_tank);
-            return true
+        } else {
+            $('form.register-form-group .error-msg').text(
+                'A tank identifier must be provided');
+                return false
         }
-        $('form.register-form-group .error-msg').text(
-            'A tank identifier must be provided');
-        return false
     }
+    // Add estimated time to loading overlay and fade in
+    const n = $('input[type="file"]')[0].files.length;
+    const time = Math.round(n * 2.345);
+    $('#loading-animation span.num').text(n);
+    $('#loading-animation span.time').text(time);
+    $('#loading-animation').fadeIn(500);
+    return true
 }

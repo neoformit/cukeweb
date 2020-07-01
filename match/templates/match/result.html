@@ -28,6 +28,7 @@
 {% if matched|length %}
 <table class="match">
   <thead>
+    <th>#</th>
     <th>Query</th>
     <th>Match</th>
     <th>Details</th>
@@ -36,6 +37,10 @@
 
   {% for match in matched %}
   <tr id="{{ match.id }}">
+    <td class="rownum">
+      <h2> {{ match.position }} </h2>
+    </td>
+
     <td class="query">
       <img src="{{ match.query_img_uri }}" alt="Query image">
       <p> {{ match.query_filename }} </p>

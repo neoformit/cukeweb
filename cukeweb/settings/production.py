@@ -51,5 +51,5 @@ EMAIL_USE_TLS = False
 DEFAULT_FROM_EMAIL = 'The Cuke Register <admin@cukes.neoformit.com>'
 
 
-BASE_URL = 'cukes.neoformit.com'
+BASE_URL = 'https://cukes.neoformit.com/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'cukeweb', 'static')

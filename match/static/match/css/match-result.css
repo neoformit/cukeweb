@@ -20,12 +20,12 @@ td img {
   height: auto;
   border-radius: 10px;
 }
+tr {
+  position: relative;
+}
 tr.selected {
   background-color: rgba(10,50,200,0.1);
   box-shadow: 0 0 15px rgba(15,100,250,0.75)
-}
-td .row {
-  align-items: center;
 }
 td.details .col {
   align-items: center;

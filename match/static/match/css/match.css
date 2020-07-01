@@ -136,3 +136,15 @@ div.targets .selected span {
   margin-left: 15px;
   cursor: pointer;
 }
+div.col.images.tooltip::after {
+  top: 85px;
+  right: -270px;
+  width: 225px;
+  content: "The order of images will be inferred from filenames by alphabetical order"
+}
+div.col.images.tooltip::before {
+  top: 100px;
+  right: -70px;
+  width: 40px;
+  height: 40px;
+}

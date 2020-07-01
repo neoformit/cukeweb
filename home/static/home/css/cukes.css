@@ -319,6 +319,26 @@ button.warn:hover {
 .tooltip:hover::before {
   display: block;
 }
+#loading-animation {
+  display: flex;  /* jquery switch to none pre-load */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-color: rgba(0,0,0,0.9);
+  opacity: 0;
+}
+#loading-animation img {
+  width: 10vw;
+  height: auto;
+  margin: 50px;
+}
 
 /* Homepage */
 div.home-button-group {

@@ -16,7 +16,7 @@
   <h1>Match registered animals</h1>
 </div>
 
-<form class="match-form-group" enctype="multipart/form-data" action="/match/" method="post" autocomplete="off">
+<form class="match-form-group" enctype="multipart/form-data" action="/match/" onsubmit="submitAnimate();" method="post" autocomplete="off">
 
   {% csrf_token %}
 
@@ -59,7 +59,7 @@
   </p>
 
   <div class="row">
-    <div class="col images">
+    <div class="col images tooltip">
       <label class="file-input disabled" for="images">
         <img src="{% static 'register/img/photo.png' %}" alt="Photo icon">
         Upload images
@@ -76,12 +76,26 @@
   </div>
 </form>
 
+
+<div id="loading-animation">
+  <h1>
+    Matching <span class="queries"></span> images against <span class="subjects"></span> registered animals... <br><br>
+    Estimated time: <span class="time"></span> seconds
+  </h1>
+
+  <img src="{% static 'home/img/spinner.svg' %}" alt="Loading animation">
+</div>
+
 {% endblock %}
 
 
 {% block javascript %}
 
 <script type="text/javascript">
+  // Hide loading animation so jquery remembers display css properties
+  $('#loading-animation').hide();
+  $('#loading-animation').css('opacity', '1');
+
   const existingTanks = [
     {% for tank in tanks %}
     "{{ tank }}",
