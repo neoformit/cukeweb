@@ -28,7 +28,7 @@ function selectTank(tank_id) {
         error: function(xhr, status, msg) {
             // alert("Server error fetching registered cukes");
             invalidTankSelection();
-            newTabErrorMessage(xhr);
+            alert("Server error") // newTabErrorMessage(xhr); // For debugging only
         },
     });
 }

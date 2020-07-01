@@ -46,7 +46,7 @@ function rejectMatch(button, action) {
         },
         error: function(xhr, status, msg) {
             // alert("Server error fetch match")
-            newTabErrorMessage(xhr);
+            alert("Server error") // newTabErrorMessage(xhr); // For debugging only
         }
     });
 }

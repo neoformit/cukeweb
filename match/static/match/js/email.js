@@ -37,7 +37,7 @@ function sendEmail(address) {
             // Say 'bad'
             hideEmailForm();
             // alert("Sorry, an error occurred sending email")
-            newTabErrorMessage(xhr);
+            alert("Server error") // newTabErrorMessage(xhr); // For debugging only
         }
     });
 }

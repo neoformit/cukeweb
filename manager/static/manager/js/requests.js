@@ -17,7 +17,7 @@ function deleteTankRequest(tank_id) {
             }
         },
         error: function(xhr, status, msg) {
-            newTabErrorMessage(xhr);
+            alert("Server error") // newTabErrorMessage(xhr); // For debugging only
         }
     });
 }
@@ -40,7 +40,7 @@ function deleteCukeRequest(tank_id, cuke_id) {
             closeModal();
         },
         error: function(xhr, status, msg) {
-            newTabErrorMessage(xhr);
+            alert("Server error") // newTabErrorMessage(xhr); // For debugging only
         }
     });
 }
@@ -104,7 +104,7 @@ function updateCukeRequest() {
             closeModal();
         },
         error: function(xhr, status, msg) {
-            newTabErrorMessage(xhr);
+            alert("Server error") // newTabErrorMessage(xhr); // For debugging only
         }
     });
 }
