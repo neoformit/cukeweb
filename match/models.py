@@ -13,6 +13,7 @@ result page and PDF report.
 
 import os
 import cukecv
+import datetime
 import traceback
 
 from django.db import models
@@ -47,6 +48,7 @@ class MatchRecord(models.Model):
     """
 
     tank = models.ForeignKey(Tank, on_delete=models.CASCADE)
+    date_created = models.DateTimeField(auto_now_add=True)
     identifier = models.CharField(
         unique=True, max_length=100, default=generate_matchset_id)
     targets = ArrayField(models.CharField(max_length=75), null=True)
@@ -62,6 +64,13 @@ class MatchRecord(models.Model):
         record.run(FILES, subjects)
         record.save()
         return record.identifier
+
+    @classmethod
+    def clean_matches(cls):
+        """Remove model instances older than 60 days."""
+        sixty_days_ago = datetime.date.today() - datetime.timedelta(days=60)
+        for r in cls.objects.filter(date_created__lt=sixty_days_ago):
+            r.delete()
 
     def run(self, FILES, subjects):
         """Create match instance and add to matches or failed."""
@@ -125,6 +134,9 @@ class MatchRecord(models.Model):
         if tex:
             result_url = (settings.BASE_URL
                           + "match/result/?id=%s" % self.identifier)
+            data['expiry_date'] = (
+                datetime.date.today() + datetime.timedelta(days=60)
+            ).strftime("%d-%m-%Y")
             data['tex_url'] = "\\href{%s}{%s}" % (result_url, result_url)
 
             for m in matches:

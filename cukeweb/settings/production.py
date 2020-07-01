@@ -35,11 +35,13 @@ DATABASES = {
 }
 
 
-# ADMINS = [            Need to configure these
-#     ("Cameron", "chyde1@usc.edu.au"),
-#     ("Cameron", "porkmymonkey@gmail.com"),
-# ]
+ADMINS = [
+    ("Cameron", "chyde1@usc.edu.au"),
+    ("Cameron", "porkmymonkey@gmail.com"),
+    # ("Peter", "pembleton@usc.edu.au"),
+]
 SERVER_EMAIL = 'admin@cukes.neoformit.com'
+EMAIL_SUBJECT_PREFIX = '[Cukeweb Admin] '
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = 25
