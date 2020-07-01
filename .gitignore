@@ -7,7 +7,7 @@ cukeweb/media/*/*.jpg
 cukeweb/media/*.jpeg
 cukeweb/media/temp/latex/report*
 cukeweb/static/*
-cukeweb/*/migrations/*.py
+*/migrations/*.py
 
 # C extensions
 *.so

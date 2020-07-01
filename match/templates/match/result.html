@@ -9,8 +9,8 @@
 <a class="home" href="/"> <img src="{% static 'icons/home.svg' %}" alt="Homepage"> </a>
 <a class="info" href="/info" target="_blank"> <img src="{% static 'icons/info.svg' %}" alt="Information"> </a>
 <a class="back" href="/match"> <img src="{% static 'icons/back.svg' %}" alt="Back"> </a>
-<a class="share" href="#" onclick="emailForm();"> <img src="{% static 'icons/send.svg' %}" alt="Send link"> </a>
-<a class="download" href="/match/report" target="_blank"> <img src="{% static 'icons/download.svg' %}" alt="Send link"> </a>
+<a class="share" href="#" onclick="emailForm();"> <img src="{% static 'icons/send.svg' %}" alt="Email link"> </a>
+<a class="download" href="/match/report/?result_id={{ result_id }}" target="_blank"> <img src="{% static 'icons/download.svg' %}" alt="Download PDF"> </a>
 {% endblock %}
 
 {% block content %}

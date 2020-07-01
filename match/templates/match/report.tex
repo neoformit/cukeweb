@@ -1,0 +1,123 @@
+{% load texsafe %}
+
+\documentclass[12pt]{report}
+\usepackage[a4paper, margin=1.5cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage[colorlinks]{hyperref}
+\usepackage{longtable}
+
+% Configure hyperlinks
+
+
+% Set font face to sans serif
+\renewcommand{\familydefault}{\sfdefault}
+
+% Set no indent on paragraphs
+\setlength{\parindent}{0pt}
+
+% Set custom table columns with centering and defined width
+\newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
+
+% Colors
+\usepackage[dvipsnames]{xcolor}
+\definecolor{firebrick}{RGB}{120,0,0}
+
+% -----------------------------------------------------------------------------
+% Document
+\begin{document}
+
+% Heading
+\begin{center}
+	\textbf{ {\LARGE Sea cucumber image match report} } \\
+	\vspace{0.5cm}
+	{\large {% now "SHORT_DATETIME_FORMAT" %} (AEST)} \\
+	\hrulefill \\
+	\vspace{0.25cm}
+	{\Large Matched {{ matched|length }} animal(s) to individuals in tank:} \\
+	\vspace{0.25cm}
+	{\Large "{{ tank_id|texsafe }}"} \\
+	\vspace{0.25cm}
+	Match URL: {{ tex_url }} \\
+	\hrulefill \\
+\end{center}
+
+
+{% if failed %}
+\vspace{0.5cm}
+\color{firebrick}
+{\large {{ failed|length }} images failed to match: } \\
+
+{% for f in failed %}
+{{ f.query_filename|texsafe }} \\ {% endfor %}
+\color{black}
+\hrulefill
+{% endif %}
+
+\vspace{0.5cm}
+
+% Details
+\begin{center}
+	\begin{longtable}{ | M{3cm} | M{3cm} | M{9cm} | }
+		\caption{Successfully matched images} \\
+
+		Query & Match & Details
+		\endhead
+
+		\hline
+		{% if not matched|length %}
+		None
+		\hline
+		{% endif %}
+
+		{% for m in matched %}
+		\raisebox{-\totalheight}{ {{ m.query_img_tex }} }
+		{{ m.query_filename|texsafe }}
+		&
+		\raisebox{-\totalheight}{ {{ m.match_img_tex }} }
+		{{ m.identity|texsafe }}
+		&
+		Registered: {{ m.date_registered|date:"j M Y" }}
+		{% for key, value in m.match_details %}
+		{{ key }}: {{ value }} {% endfor %}
+		\textbf{Score: {{ m.score }} } \\
+		\hline
+		{% endfor %}
+
+	\end{longtable}
+\end{center}
+
+
+{% if failed %}
+\begin{center}
+	\color{firebrick}
+	\begin{longtable}{ | M{3cm} | M{3cm} | M{9cm} | }
+		\caption{Failed images} \\
+
+		Image & Filename & Error
+		\endhead
+
+		\hline
+		{% for f in failed %}
+		\raisebox{-\totalheight}{ {{ f.query_img_tex }} }
+		\vspace{2mm}
+		& {{ f.query_filename|texsafe }}
+		& {{ f.exception|texsafe }} \\
+		\hline
+		{% endfor %}
+
+	\end{longtable}
+\end{center}
+{% endif %}
+
+\fbox{
+    \parbox{\textwidth}{
+		\vspace{0.5cm}
+        \textbf{Match scoring} \\
+		Match scores are calculated from the number of spots that matched between images. A score above \textbf{1000} indicates a match of high confidence. Scores below \textbf{100} are low-confidence and likely to be incorrect. These matches should be confirmed in the results interface by pressing the "reject" button until a true match has been found.
+		\vspace{0.5cm}
+    }
+}
+
+\end{document}

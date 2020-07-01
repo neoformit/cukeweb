@@ -35,7 +35,7 @@ class RegistrationReport:
         """Add a successfully registered cucumber instance."""
         self.registered.append({
             'id': cucumber.identifier,
-            'filename': os.path.basename(cucumber.source_image.name),
+            'filename': cucumber.original_filename,
             'img_tex': '\\includegraphics[width=30mm, height=20mm]{%s}' %
                        os.path.join(
                            settings.MEDIA_ROOT,
