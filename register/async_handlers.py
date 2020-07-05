@@ -45,7 +45,7 @@ def notify_admin(request):
     with open(pkl_path, 'wb') as p:
         pk.dump(data, p)
     with open(msg_path, 'w') as f:
-        f.write(message)
+        f.write(message + '\n')
 
     # Notify admin
     body = ('A user has submitted a bug report after attempted cucumber'

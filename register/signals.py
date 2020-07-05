@@ -26,7 +26,7 @@ logger = logging.getLogger('django')
 @receiver(post_delete, sender=Tank)
 def remove_tank_files(sender, instance, using, **kwargs):
     """Remove image files linked to model instance."""
-    logger('Tank post-delete signal fired. Removing registered images.')
+    logger.info('Tank deleted - removing registered image files.')
     dpath = os.path.join(
         settings.BASE_DIR,
         'cukeweb',
@@ -43,14 +43,8 @@ def remove_tank_files(sender, instance, using, **kwargs):
 @receiver(post_delete, sender=Cucumber)
 def remove_cuke_files(sender, instance, using, **kwargs):
     """Remove image files linked to model instance."""
-    logger('Cucumber post-delete signal fired. Removing registered image.')
+    logger.info('Cucumber deleted - removing registered image file.')
     try:
-        os.remove(instance.source_img.path)
+        os.remove(instance.source_image.path)
     except Exception as exc:
         logger.error("Error removing Cucumber image file:\n%s" % str(exc))
-
-
-@receiver(pre_delete, sender=Cucumber)
-def test_cuke_signal(sender, instance, using, **kwargs):
-    """Test if pre-delete works."""
-    logger('Cucumber pre-delete signal fired.')
