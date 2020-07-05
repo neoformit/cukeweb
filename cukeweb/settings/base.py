@@ -13,7 +13,6 @@ BASE_DIR = os.path.dirname(
 LOGIN_URL = '/login'
 LOGIN_REQUIRED_IGNORE_PATHS = [
     r'^/$',
-    r'^/admin/$',
 ]
 
 ALLOWED_HOSTS = [

@@ -186,3 +186,51 @@ div.invalid img {
   border: 1px solid #555;
   border-radius: 10px;
 }
+
+/* Modal */
+.modal img {
+  display: none;
+  width: 100px;
+  height: auto;
+}
+.modal div.dialog {
+  text-align: center;
+}
+.modal textarea {
+  color: #222;
+  font-size: 1rem;
+  padding: 10px;
+  margin: 10px 0;
+  background-color: #ddd;
+}
+div.success {
+  display: none;
+  position: relative;
+  left: 100px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: green;
+  box-shadow: 0 0 15px 5px green;
+}
+div.success:after {
+  position: absolute;
+  top: 30%;
+  left: 15%;
+  z-index: 15;
+  width: 60%;
+  height: 20%;
+  border-left: 5px solid white;
+  border-bottom: 5px solid white;
+  transform: rotate(-55deg);
+  content: "";
+}
+div.success:before {
+  position: absolute;
+  top: 10px;
+  left: -220px;
+  color: green;
+  font-size: 1.5rem;
+  font-weight: normal;
+  content: "Notification sent";
+}

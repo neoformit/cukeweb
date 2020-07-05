@@ -41,7 +41,7 @@ def register(request):
                 infer_id=form.cleaned_data['infer_id'],
                 prefix_id=form.cleaned_data['id_prefix']
             )
-            # Session data for access by pdf.render
+            # Session data for access by pdf.render/notify_admin
             request.session['registration_data'] = report.report_data()
             return render(request, 'register/confirm.html',
                           report.request_data())

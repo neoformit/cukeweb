@@ -51,7 +51,7 @@
     <div class="col text">
       <h4 class="error-msg"> <b>File:</b> {{ item.filename }} </h4>
       <h4 class="error-msg"> <b>Error:</b> {{ item.message }} </h4>
-      <button class="warn tooltip" type="button" onclick="reportError('{{ item.name }}');"> Report bug </button>
+      <button class="warn tooltip" type="button" onclick="notifyAdminDialog('{{ item.filename }}');"> Report bug </button>
     </div>
   </div>
   {% endfor %}
@@ -67,12 +67,43 @@
 
 </div>
 
+
+<div class="modal-overlay" onclick="closeModal();"></div>
+
+<div class="modal" id="notifyAdminModal">
+  <div class="dialog">
+    <div class="close" type="button" name="button" onclick="closeModal();"> &times; </div>
+
+    <h3> Notify developer </h3>
+
+    <p>
+      If you think you've encountered a bug, you can notify a developer that
+      something is wrong.
+      <br><br>
+      This registration event will be investigated.
+    </p>
+
+    <textarea rows="8" cols="50" placeholder="Please add any information that might be relevant"></textarea>
+
+    <br>
+
+    <button class="warn" type="submit"> Submit </button>
+    <button type="button" onclick="closeModal();"> Cancel </button>
+  </div>
+
+  <img src="{% static 'home/img/spinner.svg' %}" alt="Loading animation">
+  <div class="success"></div>
+</div>
+
 {% endblock %}
 
 
 {% block javascript %}
 <script type="text/javascript">
   $(document).ready(function() {
+    $('.modal').hide()  // Remember display attr
+    $('.modal').css('opacity', 1)
+
     setTimeout(function() {
       console.log('Settings focus on tooltip');
       $('.sidebar span.tooltip').addClass('hovered');
@@ -84,4 +115,7 @@
     }, 6000);
   });
 </script>
+
+<script src="{% static 'home/js/ajax.js' %}"></script>
+<script src="{% static 'register/js/result.js' %}"></script>
 {% endblock %}
