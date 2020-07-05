@@ -129,8 +129,8 @@
     <div class="add">
       <label for=""> New field </label>
       <br>
-      <input type="text" name="new_key" value="" placeholder="Field name" onclick="$(this).parent().children('input').removeClass('invalid');">
-      <input type="text" name="new_value" value="" placeholder="Field value" onclick="$(this).parent().children('input').removeClass('invalid');">
+      <input type="text" name="new_key" value="" placeholder="Field name" onclick="$(this).parent().children('input').removeClass('invalid');" maxlength="255">
+      <input type="text" name="new_value" value="" placeholder="Field value" onclick="$(this).parent().children('input').removeClass('invalid');" maxlength="255">
     </div>
 
     <p class="error-msg"></p>

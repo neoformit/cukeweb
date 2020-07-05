@@ -28,8 +28,8 @@ function editCukeDialog(tank_id, cuke_id) {
     Object.keys(details).forEach(function(key) {
         input = $(
             `<div class="detail" id="${ key }">
-                <input name="${ key }" value="${ key }" placeholder="${ key }" onclick="$(this).parent().children('input').removeClass('invalid');">
-                <input name="value" value="${ details[key] }" placeholder="${ details[key] }" onclick="$(this).parent().children('input').removeClass('invalid');">
+                <input name="${ key }" value="${ key }" placeholder="${ key }" onclick="$(this).parent().children('input').removeClass('invalid');" maxlength="255">
+                <input name="value" value="${ details[key] }" placeholder="${ details[key] }" onclick="$(this).parent().children('input').removeClass('invalid');" maxlength="255">
                 <div class="close" onclick="$(this).parent().empty();"> &times; </div>
             </div>`
         );

@@ -22,10 +22,13 @@
 
     <p>
       The purpose of the Cuke Register is to allow sea cucumbers to be tagged
-      by image. After <a href="/register">registering</a> images of a sea
+      by image.
+      <br><br>
+      After <a href="/register">registering</a> images of a sea
       cucumber to a particular tank, you can return at a later date with new
       photographs of animals from that tank, and the cuke registry will
       <a href="/match">match</a> the animals(s) that you are looking for.
+      <br><br>
       You can also <a href="/search">search</a> for a particular animal and
       view all registered tanks and animals to keep track of the registry. This
       view also allows you to add information to registered animals, such as
@@ -43,8 +46,8 @@
 
     <p>
       To register an animal, a purpose-made image-capture device (ICD) should
-      be used to photograph the animals. This device must satisfy a number of
-      criteria:
+      be used to photograph the animals. This device must satisfy several
+      important criteria:
     </p>
 
     <ul>
@@ -61,7 +64,7 @@
       registration and matching, because changes to image lighting and angle may
       prevent the software from recognising an animal. Replacing the camera
       should be avoided for the same reason, since different cameras take
-      different pictures. Put simply - obtain a good ICD and take care of it!
+      different pictures. Put simply - build a good ICD and take care of it!
     </p>
 
     <p>
@@ -69,14 +72,16 @@
       should connect the camera to the computer for uploading the images to the
       <a href="/register">registration interface</a>. At this point you could
       choose to rename the image files to an appropriate ID format which will
-      be used to identify each animal in the database. It is often
+      be used to identify each animal in the database.
+      <br><br>
+      It is often
       useful to take DNA samples from the animals which can be linked to the
       registry - if this is the case, the filenames should probably match the
       labels of the DNA samples.
     </p>
 
     <p>
-      Alternatively, if you are not worried about the identifier format you can
+      Alternatively, if the identifier format/order is not a concern, you can
       choose to auto-generate the IDs. The following selection demonstrates how
       identifiers will be generated:
     </p>
@@ -86,10 +91,28 @@
     <p>
       When registration is complete you will be shown a confirmation
       page. You can choose to download a PDF report of the registration which
-      will show all registered images with their registration IDs. Sometimes
+      will show all registered images with the assigned identifiers. Sometimes
       an image will fail to register, usually due to a problem with the image.
       Any failed images will be shown on this page along with an error message
       to suggest what went wrong.
+    </p>
+  </div>
+
+  <div class="item" id="manage">
+    <h2 class="title"> Manage </h2>
+    <p>
+      The <a href="/manager">manage</a> interface enables you to see the tanks
+      and animals that are currently registered to the database.
+      <br><br>
+      Here, you can delete animals that have been removed from the tank, or
+      remove entire tanks that have been cleaned out (or perhaps registered
+      incorrectly).
+      <br><br>
+      You also have the option to add information to registered animals, such
+      as fecundity rate, gender, or spawning date. These are just
+      suggestions - any information relevant to your business can be added
+      here, provided it is less than 255 characters. Just click on the pencil
+      icon at the bottom of any registered animal.
     </p>
   </div>
 
@@ -107,49 +130,141 @@
       capture the candidate animals, upload the image files to the
       <a href="/match">match interface</a>,
       and the image-matching algorithm will try to figure out who is who.
+      <br><br>
       The matching process should take approximately 12 seconds per animal in
       a tank of 50 individuals. You will then be presented with a "results"
       interface showing the cucumber images matched to identifiers from the
       database, along with a score to show the confidence level for the match.
+      <br><br>
+      The first column of the results shows the query animal's position. This
+      related to the order that the animals were captured in, and is based on
+      the alphabetical order of the filenames. If you did not alter the
+      filenames, the camera should have ordered the filenames correctly by
+      default. Therefore:
     </p>
+
+    <p class="big attention">Do not rename image files before uploading!</p>
 
     <p>
       The operator should then confirm by eye that this match is genuine - it
       is usually quite easy to see when two different animals have been matched
-      incorrectly (though this shouldn't happen too often).
+      incorrectly (though this should only happen with scores below 100).
+      <br><br>
       If this is the case, hit "reject" to get the next best-scoring match,
       until the genuine match has been found. These rejections will be stored
       in the database and can be used to improve the algorithm.
-    </p>
-
-    <p>
-      If no genuine matches can be found for a given result, you can choose to
-      hit the "report" button to notify the developer if you think the software
-      really isn't working. The match results will be saved for the developer to
-      view and fix the issue, so you don't have to do anything else.
-    </p>
-  </div>
-
-  <div class="item" id="search">
-    <h2 class="title"> Search </h2>
-    <p>
-      Blah
     </p>
   </div>
 
   <div class="item" id="workflow">
     <h2 class="title"> Workflow </h2>
     <p>
-      Blah
+      In order to utilitize this system effectively your workflow should be
+      planned carefully. As a general rule, you will likely use the apps in
+      the order they are presented on the homepage:
+    </p>
+
+    <img src="{% static 'home/img/home-buttons.png' %}" alt="Register, manage, match">
+
+    <br><br>
+
+    <p class="text-center"> An example workflow: </p>
+    <img src="{% static 'home/img/placeholder.svg' %}" alt="Workflow overview">
+
+    <h3 class="subtitle"> Registration </h3>
+
+    <p>
+      Registration should be quite straightforward - the objective is to
+      photograph all cucumbers in a tank with the ICD. The images can then be
+      uploaded and registered to that tank in the
+      <a href="/register">register</a>
+      interface.
+      <br><br>
+      The simplest way to register a tank of sea cucumbers is to register the
+      animals as they go into the tank.
+      <br><br>
+      If a tank is already populated, you
+      should design a protocol to ensure that you can register all animals in
+      one event without registering the same animal multiple times.
+      For example, you could place registered animals in a corner of the tank
+      that has been isolated with netting or a submerged box. When all animals
+      have been registered, you can then restore the tank to its previous
+      state.
+      <br><br>
+      If you plan to take DNA samples from the animals (e.g. to confirm gender)
+      this is probably the best time to do it, so that the DNA and registration
+      identifiers can be linked. You can apply specific identifiers by renaming
+      the image files before registrations - the filenames will be used as
+      identifiers.
+    </p>
+
+    <h3 class="subtitle"> Managing tanks and animals </h3>
+
+    <p>
+      You may wish to add information to registered animals throughout the
+      production cycle. If you discover a registered animal's gender, you can
+      add this information in the management interface. After breeding the
+      animals, you can add fecundity information.
+      <br><br>
+      At a later date, you may wish
+      to find a specific animal (for instance, a female with high fecundity).
+      You can then use the match interface to help find that animal.
+    </p>
+
+    <h3 class="subtitle"> Matching </h3>
+
+    <p>
+      Without additinal hardware (we are working on that), matching requires a
+      carefully designed protocol:
+    </p>
+
+    <ol>
+      <li> Photograph the candidate animals (possibly all individuals in a registered tank) </li>
+      <li> Upload the images to the match interface to discover the candidate identities </li>
+      <li> Locate the target animal(s) based the order they were captured </li>
+    </ol>
+
+    <p>
+      The last point required the most careful planning. If the animals were
+      simply returned to the tank after step 1, then you would have no way to
+      find the identified animals after step 3.
+    </p>
+
+    <p>
+      The solution is to separate the animals to retain the capture order during
+      step 1. The matching interface will show you the position of each identified
+      animal, and you can then return to the animal based on its location. A simple
+      way to acheive this is to have a series of small tubs in which to place
+      animals after photographing. Then, in step 3, if you find that your target
+      animals are in positions 3, 8 & 17, you can return to those tubs and collect
+      your animals. The remaining animals can be returned to the tank.
     </p>
   </div>
 
+<!--
   <div class="item" id="faq">
     <h2 class="title"> FAQ </h2>
+
     <p>
-      Blah
+      FAQ 1
+    </p>
+
+    <p>
+      FAQ 2
     </p>
   </div>
+-->
+
+  <div class="item" id="contact">
+    <h2 class="title"> Contact </h2>
+
+    <p>
+      If you find a bug or have an issue with the software, you can contact the
+      developer: <br><br>
+      <a href="mailto:chyde1@usc.edu.au?subject=Cucumber%20registry">chyde1@usc.edu.au</a>
+    </p>
+  </div>
+
 </div>
 
 {% endblock %}

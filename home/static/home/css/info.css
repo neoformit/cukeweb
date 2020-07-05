@@ -4,8 +4,13 @@ p {
 p.big {
   font-size: 2rem;
 }
-ul li {
-  font-size: 1.25rem;
+p.attention {
+  color: gold;
+  font-weight: bold;
+  text-align: center;
+}
+li {
+  font-size: 1.5rem;
   line-height: 1.5;
 }
 div.info {
@@ -27,6 +32,12 @@ div.info .item:last-child {
 }
 div.info h2.title {
   font-weight: bold;
+  font-size: 2rem;
+}
+div.info h3.subtitle {
+  margin-top: 50px;
+  font-weight: bold;
+  font-size: 1.5rem;
 }
 div.info img {
   width: 100%;
