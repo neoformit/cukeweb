@@ -7,6 +7,7 @@ cukeweb/media/*/*.jpg
 cukeweb/media/*.jpeg
 cukeweb/media/temp/latex/report*
 cukeweb/static/*
+*.mp4
 
 # C extensions
 *.so
