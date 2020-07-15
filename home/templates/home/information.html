@@ -16,6 +16,17 @@
   <h1>Information</h1>
 </div>
 
+<div class="video">
+  <video width="800" height="500" controls>
+    <source src="{% get_media_prefix %}tutorial.mp4" type="video/mp4">
+    Please use Chrome Browser to display this video.
+  </video>
+
+</div>
+
+<a class="button" href="{% get_media_prefix %}ICD_plans.pdf"> ICD schematic </a>
+<br>
+
 <div class="info">
   <div class="item" id="overview">
     <h2 class="title"> Overview </h2>
@@ -29,10 +40,9 @@
       photographs of animals from that tank, and the cuke registry will
       <a href="/match">match</a> the animals(s) that you are looking for.
       <br><br>
-      You can also <a href="/search">search</a> for a particular animal and
-      view all registered tanks and animals to keep track of the registry. This
-      view also allows you to add information to registered animals, such as
-      gender, genotype and fertility.
+      You can also use the <a href="/search">registry manager</a>to keep track
+      of registered tanks and animals. This view also allows you to add information
+      to animals after registering, such as gender, genotype and fertility.
     </p>
   </div>
 
@@ -44,57 +54,61 @@
       animals that have died or been removed.
     </p>
 
-    <p>
-      To register an animal, a purpose-made image-capture device (ICD) should
-      be used to photograph the animals. This device must satisfy several
-      important criteria:
-    </p>
+    <div class="text-box">
+      <h1> The image capture device (ICD) </h1>
 
-    <ul>
-      <li> Take pictures from a consistent distance and angle </li>
-      <li> Provide a uniform, bright (green or blue) background </li>
-      <li> Provide a consistent light source to keep colours consistent between photographs </li>
-      <li> Remove glare from the surface of the animal by blocking light from above </li>
-    </ul>
+      <p>
+        To register an animal, a purpose-made image-capture device (ICD) should
+        be used to photograph the animals. This device must satisfy several
+        important criteria:
+      </p>
+
+      <ul>
+        <li> Take pictures from a consistent distance and angle </li>
+        <li> Provide a uniform, bright (green or blue) background </li>
+        <li> Provide a consistent light source to keep colours consistent between photographs </li>
+        <li> Remove glare from the surface of the animal by blocking light from above </li>
+      </ul>
+
+      <p>
+        Plans for an ICD can be seen
+        <a href="{% get_media_prefix %}ICD_plans.pdf" target="_blank">here</a>.
+        It is very important that this device is not modified or replaced between
+        registration and matching, because changes to image lighting and angle may
+        prevent the software from recognising an animal. Replacing the camera
+        should be avoided for the same reason, since different cameras take
+        different pictures. <br><br>
+        Put simply - build a good ICD and take care of it!
+      </p>
+    </div>
 
     <p>
-      Plans for an ICD can be seen
-      <a href="{% get_media_prefix %}ICD_plans.pdf" target="_blank">here</a>.
-      It is very important that this device is not modified or replaced between
-      registration and matching, because changes to image lighting and angle may
-      prevent the software from recognising an animal. Replacing the camera
-      should be avoided for the same reason, since different cameras take
-      different pictures. Put simply - build a good ICD and take care of it!
-    </p>
-
-    <p>
-      After capturing all animals and returning them to the tank, the operator
+      After "capturing" all animals and returning them to the tank, the operator
       should connect the camera to the computer for uploading the images to the
-      <a href="/register">registration interface</a>. At this point you could
+      <a href="/register">registration interface</a>. At this point you might
       choose to rename the image files to an appropriate ID format which will
       be used to identify each animal in the database.
       <br><br>
-      It is often
-      useful to take DNA samples from the animals which can be linked to the
-      registry - if this is the case, the filenames should probably match the
-      labels of the DNA samples.
+      If you intend on taking DNA samples from the animals, these filenames
+      should probably match the labels of the DNA samples.
     </p>
 
     <p>
       Alternatively, if the identifier format/order is not a concern, you can
       choose to auto-generate the IDs. The following selection demonstrates how
-      identifiers will be generated:
+      identifiers would be generated:
     </p>
 
     <img src="{% static 'home/img/idformat.jpg' %}" alt="ID formatting">
 
     <p>
       When registration is complete you will be shown a confirmation
-      page. You can choose to download a PDF report of the registration which
-      will show all registered images with the assigned identifiers. Sometimes
-      an image will fail to register, usually due to a problem with the image.
+      page. You can choose to download a PDF report which showing all
+      registered images with the assigned identifiers. Sometimes
+      an image will fail to register, indicating a problem with the image.
       Any failed images will be shown on this page along with an error message
-      to suggest what went wrong.
+      to suggest what went wrong. However, if your ICD and image capture
+      protocol is good, this should never be an issue.
     </p>
   </div>
 
@@ -111,8 +125,8 @@
       You also have the option to add information to registered animals, such
       as fecundity rate, gender, or spawning date. These are just
       suggestions - any information relevant to your business can be added
-      here, provided it is less than 255 characters. Just click on the pencil
-      icon at the bottom of any registered animal.
+      here, provided it is under 255 characters. Just click on the pencil
+      icon at the bottom of any animal in the registry to add information.
     </p>
   </div>
 
@@ -122,7 +136,7 @@
       When it comes to finding registered animals, there are a number of ways
       that the operator might choose to do this - take a look at
       <a href="#workflow">workflows</a>
-      to learn how best to identify your animals.
+      for an idea of how your tagging protocol might look.
     </p>
 
     <p>
@@ -166,11 +180,6 @@
 
     <img src="{% static 'home/img/home-buttons.png' %}" alt="Register, manage, match">
 
-    <br><br>
-
-    <p class="text-center"> An example workflow: </p>
-    <img src="{% static 'home/img/placeholder.svg' %}" alt="Workflow overview">
-
     <h3 class="subtitle"> Registration </h3>
 
     <p>
@@ -180,21 +189,21 @@
       <a href="/register">register</a>
       interface.
       <br><br>
-      The simplest way to register a tank of sea cucumbers is to register the
-      animals as they go into the tank.
+      The simplest way to register animals is to register them as they arrive
+      in the tank.
       <br><br>
       If a tank is already populated, you
       should design a protocol to ensure that you can register all animals in
       one event without registering the same animal multiple times.
       For example, you could place registered animals in a corner of the tank
       that has been isolated with netting or a submerged box. When all animals
-      have been registered, you can then restore the tank to its previous
+      have been registered, you can then restore the tank to its normal
       state.
       <br><br>
       If you plan to take DNA samples from the animals (e.g. to confirm gender)
       this is probably the best time to do it, so that the DNA and registration
       identifiers can be linked. You can apply specific identifiers by renaming
-      the image files before registrations - the filenames will be used as
+      the image files before registration - the filenames will be used as
       identifiers.
     </p>
 
@@ -214,8 +223,8 @@
     <h3 class="subtitle"> Matching </h3>
 
     <p>
-      Without additinal hardware (we are working on that), matching requires a
-      carefully designed protocol:
+      Without additinal hardware (we hope to develop this in the future),
+      matching requires a carefully designed protocol:
     </p>
 
     <ol>

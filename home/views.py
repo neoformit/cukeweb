@@ -1,6 +1,7 @@
 """Return a static homepage as the site index."""
 
 from django.contrib import auth
+from django.conf import settings
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
 
@@ -18,7 +19,8 @@ def home(request):
 
 def info(request):
     """Render a static information page."""
-    return render(request, 'home/information.html')
+    video_url = settings.MEDIA_URL + "tutorial.mp4"
+    return render(request, 'home/information.html', {'video_url': video_url})
 
 
 def login(request):

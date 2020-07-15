@@ -13,6 +13,19 @@ li {
   font-size: 1.5rem;
   line-height: 1.5;
 }
+div.video {
+  text-align: center;
+  margin: 50px auto 25px auto;
+  padding: 15px;
+  border: 2px solid #222;
+  border-radius: 15px;
+}
+div.text-box {
+  margin: 15px;
+  padding: 15px;
+  border-radius: 15px;
+  background-color: rgba(250,250,250,0.1);
+}
 div.info {
   display: flex;
   flex-direction: column;
