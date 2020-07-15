@@ -12,7 +12,7 @@
 <div class="container">
   <h2> Please log in to continue </h2>
 
-  <form action="/" method="post" autocomplete="off">
+  <form action="/" method="post" onsubmit="countdownRefresh();" autocomplete="off">
     {% csrf_token %}
     <div class="col align-items-center">
       <input type="text" name="username" value="" placeholder="Username" autofocus required>
@@ -36,5 +36,13 @@
           return false;
       }
   });
+
+  function countdownRefresh() {
+    // Sometimes the backend freezes on login. Refresh the page for a hacky fix.
+    setTimeout(function () {
+      console.log('Page refresh!');
+      window.location = "/";
+    }, 3000);
+  }
 </script>
 {% endblock %}
